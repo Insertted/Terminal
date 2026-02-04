@@ -24,21 +24,21 @@ html, body {
 }
 
 #terminal {
-    position: fixed;      /* Фиксируем относительно экрана */
-    left: 0;              /* Прижимаем к левому краю */
-    bottom: 0;            /* Прижимаем к нижнему краю */
-    width: 50%;           /* Ограничиваем ширину, чтобы не перекрывать центр */
-    padding: 40px;        /* Отступы от краев монитора (как на фото) */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    padding: 40px;
     box-sizing: border-box;
-    z-index: 10;          /* Поверх видео */
+    z-index: 10;
 
     color: whitesmoke;
-    font-size: 24px;      /* Настрой размер текста здесь */
-    line-height: 1.2;     /* Плотность строк */
+    font-size: 24px;
+    line-height: 1.2;
     font-family: 'VCR', sans-serif;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Новые строки будут появляться снизу */
+    justify-content: flex-end;
 }
 
 #terminal-content {

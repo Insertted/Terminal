@@ -1,11 +1,30 @@
 const history = document.getElementById('history');
 const input = document.getElementById('cmd-input');
 const terminal = document.getElementById('terminal');
-const typerText = document.getElementById('typer-text'); // Новый элемент
+const typerText = document.getElementById('typer-text');
 
 const loaderFrames = ['/', '-', '\\', '|'];
 
-// 1. Зеркалим ввод пользователя на экран
+function getDateTime() {
+    const now = new Date();
+    const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+    };
+    return now.toLocaleDateString('en-US', options);
+}
+
+window.onload = async () => {
+    input.blur();
+    await showLoader(1500);
+    const dateStr = getDateTime();
+    await typeWriter(`Welcome to main Automated Antenna Communication Service.\\nYou re logged in as "Guest"\\n${dateStr}\\nYour IP address 127.1.1.0\\nType "help" for command list.`);
+    input.focus();
+}
+
 input.addEventListener('input', () => {
     typerText.textContent = input.value;
 });
@@ -46,15 +65,13 @@ async function typeWriter(text, speed = 30) {
 input.addEventListener('keydown', async (e) => {
     if (e.key === 'Enter') {
         const command = input.value.toLowerCase().trim();
-        const rawCommand = input.value; // Сохраняем текст для истории
+        const rawCommand = input.value;
         
-        // Очищаем поле и зеркало сразу после нажатия Enter
         input.value = '';
         typerText.textContent = '';
 
         if (command === '') return;
 
-        // Выводим команду в историю
         const userLine = document.createElement('div');
         userLine.innerHTML = `<span style="color: #888;">AACS:\\> ${rawCommand}</span>`;
         history.appendChild(userLine);
@@ -65,7 +82,14 @@ input.addEventListener('keydown', async (e) => {
             await typeWriter('Wel▓̡̋́▓͑̃▓̍ͥme to Autom▓̡̋́te# An##nna Co▓͑̃▓̍ͥnicating Se#▓̍ͥice.\\nTerm▓̡̋́▓͑̃▓̍ͥl response to co##ands:\\nLOGS\\nSTATUS\\nCLEAR');
         } else if (command === 'clear') {
             history.innerHTML = '';
-        } else {
+        } else if (command === 'status') {
+            await typeWriter('Diagnostic. . .')
+            await showLoader(4000)
+            await typeWriter('Server_connection................OK\\nAntenna_translators..............OK\\nTransformer_substation3102.......OK\\nTransformer_substation1429.......OK\\nMain_transofrmer.................ERROR\\nPower_plant_connection...........ERROR\\nRelay_triangulation..............ERROR')
+            await showLoader(3000)
+            await typeWriter('Cur▓̡̋́▓͑̃ent status: POWER OUTAGES')
+        }
+         else {
             await typeWriter(`ERROR: Command "${command}" not recognized.`);
         }
     }
