@@ -2,6 +2,8 @@ html, body {
   width: 100%;
   height: 100%;
   margin: 0;
+  background-color: black;
+  overflow: hidden;
 }
 
 .bg-video {
@@ -14,15 +16,86 @@ html, body {
   pointer-events: none;
 }
 
-.content {
-  position: fixed;
-  z-index: 1;
-  inset: 0;
+@font-face {
+    font-family: 'VCR';
+    src: url(../font/VCROSDMonoNova.woff);
+    font-weight: normal;
+    font-style: normal;
+}
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#terminal {
+    position: fixed;      /* Фиксируем относительно экрана */
+    left: 0;              /* Прижимаем к левому краю */
+    bottom: 0;            /* Прижимаем к нижнему краю */
+    width: 50%;           /* Ограничиваем ширину, чтобы не перекрывать центр */
+    padding: 40px;        /* Отступы от краев монитора (как на фото) */
+    box-sizing: border-box;
+    z-index: 10;          /* Поверх видео */
 
-  color: white;
-  text-align: center;
+    color: whitesmoke;
+    font-size: 24px;      /* Настрой размер текста здесь */
+    line-height: 1.2;     /* Плотность строк */
+    font-family: 'VCR', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Новые строки будут появляться снизу */
+}
+
+#terminal-content {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+#history {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    word-wrap: break-word;
+    overflow-wrap:break-word;
+    white-space: pre-wrap;
+}
+
+.line {
+    width: 500vh;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#history, .input-line {
+    max-width: 40%; 
+    text-align: left;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+#cmd-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#typer-text {
+    white-space: pre;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+}
+
+#cursor {
+    display: inline-block;
+    width: 10px;
+    height: 1.2em;
+    background: whitesmoke;
+    animation: blink 1s infinite;
+    margin-left: 5px;
+    box-shadow: 0 0 5px whitesmoke;
+}
+
+@keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
 }
