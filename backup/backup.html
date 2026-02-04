@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AACS Terminal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <video class="bg-video" autoplay muted loop playsinline>
+        <source src="../video/AACS.mp4" type="video/mp4">
+        <source src="../video/AACS.webm" type="video/webm">
+    </video>
+    
+    <div id="terminal">
+        <div id="terminal-content">
+            <div id="history"></div>
+
+            <div class="input-line">
+                <span class="prompt">AACS:\></span>
+                <span id="typer-text"></span> <input type="text" id="cmd-input" autofocus spellcheck="false">
+                <div id="cursor"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
