@@ -38,7 +38,7 @@ async function showLoader(duration = 1500) {
     const interval = setInterval(() => {
         loaderLine.textContent = loaderFrames[frame];
         frame = (frame + 1) % loaderFrames.length;
-    }, 100);
+    }, 190);
 
     await new Promise(resolve => setTimeout(resolve, duration));
     clearInterval(interval);
@@ -76,7 +76,7 @@ input.addEventListener('keydown', async (e) => {
         userLine.innerHTML = `<span style="color: #888;">AACS:\\> ${rawCommand}</span>`;
         history.appendChild(userLine);
         
-        await showLoader(2300); 
+        await showLoader(2900); 
 
         if (command === 'help') {
             await typeWriter('Wel▓̡̋́▓͑̃▓̍ͥme to Autom▓̡̋́te# An##nna Co▓͑̃▓̍ͥnicating Se#▓̍ͥice.\\nTerm▓̡̋́▓͑̃▓̍ͥl response to co##ands:\\nLOGS\\nSTATUS\\nCLEAR');
