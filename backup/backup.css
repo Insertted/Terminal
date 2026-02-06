@@ -24,21 +24,21 @@ html, body {
 }
 
 #terminal {
-    position: fixed;      /* Фиксируем относительно экрана */
-    left: 0;              /* Прижимаем к левому краю */
-    bottom: 0;            /* Прижимаем к нижнему краю */
-    width: 50%;           /* Ограничиваем ширину, чтобы не перекрывать центр */
-    padding: 40px;        /* Отступы от краев монитора (как на фото) */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    padding: 40px;
     box-sizing: border-box;
-    z-index: 10;          /* Поверх видео */
+    z-index: 10;
 
     color: whitesmoke;
-    font-size: 24px;      /* Настрой размер текста здесь */
-    line-height: 1.2;     /* Плотность строк */
+    font-size: 24px;
+    line-height: 1.2;
     font-family: 'VCR', sans-serif;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Новые строки будут появляться снизу */
+    justify-content: flex-end;
 }
 
 #terminal-content {
@@ -71,18 +71,20 @@ html, body {
 #history, .input-line {
     max-width: 40%; 
     text-align: left;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
 }
 
 #cmd-input {
     position: absolute;
     opacity: 0;
     pointer-events: none;
+    width: 1px;
 }
 
 #typer-text {
     white-space: pre;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.7);
+    color: whitesmoke;
 }
 
 #cursor {

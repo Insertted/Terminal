@@ -6,20 +6,10 @@ const typerText = document.getElementById('typer-text');
 const loaderFrames = ['/', '-', '\\', '|'];
 
 let isAuth = false;
-let curStep = 'system'; // По умолчанию мы в системе как гость
+let curStep = 'system'; 
 const regdata = { user: 'observer012', password: 'pan'}
 
-function getDateTime() {
-    const now = new Date();
-    const options = { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric', 
-        hour: '2-digit', 
-        minute: '2-digit' 
-    };
-    return now.toLocaleDateString('en-US', options);
-}
+import { getDateTime } from "../modules/date.js";
 
 window.onload = async () => {
     input.blur();
@@ -70,6 +60,15 @@ async function typeWriter(text, speed = 30) {
     }
 }
 
+function downloadFile(filePath, fileName) {
+    const link = document.createElement('a');
+    link.href = filePath;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
 input.addEventListener('keydown', async (e) => {
     if (e.key === 'Enter') {
         const val = input.value.trim();
@@ -80,14 +79,12 @@ input.addEventListener('keydown', async (e) => {
 
         if (val === '' && curStep !== 'auth_password') return;
 
-        // Отображение ввода в истории
         const userLine = document.createElement('div');
         userLine.innerHTML = `<span style="color: #888;">AACS:\\> ${curStep === 'auth_password' ? '********' : raw}</span>`;
         history.appendChild(userLine);
         
         await showLoader(1000); 
 
-        // ЛОГИКА АВТОРИЗАЦИИ ЧЕРЕЗ КОМАНДУ
         if (curStep === 'auth_login') {
             if(val.toLowerCase() === regdata.user) {
                 curStep = 'auth_password';
@@ -115,7 +112,6 @@ input.addEventListener('keydown', async (e) => {
                 curStep = 'system';
             }
         }
-        // ОБЫЧНЫЙ РЕЖИМ КОМАНД
         else if (curStep === 'system') {
             const command = val.toLowerCase();
 
@@ -126,22 +122,22 @@ input.addEventListener('keydown', async (e) => {
                     curStep = 'auth_login';
                     await typeWriter('Enter user ID: ');
                 }
-            } else if (command === 'help') {
+            } 
+            else if (command === 'help') {
                 if (!isAuth) {
                     await typeWriter('Commands:\\nLOGIN\\nLOGS\\nSTATUS\\nCLEAR');
                 } else {
-                    await typeWriter('Commands:\\nLOGS\\nSTATUS\\nLOGOUT\\nCLEAR');
+                    await typeWriter('Commands:\\nLOGS\\nFILES\\nSTATUS\\nLOGOUT\\nCLEAR');
                 }
             } else if (command === 'status') {
-                if (!isAuth) {
-                    await typeWriter('Diagnostic. . .');
-                    await showLoader(3500);
-                    await typeWriter('Server_connection................OK\\nAntenna_translators..............OK\\nMain_transformer.................OFF\\nNorth_Line.......................ERROR\\nWest_Line........................ERROR\\nStatus: POWER OUTAGES');
-                } else {
-                    await typeWriter('Diagnostic. . .');
-                    await showLoader(3500);
-                    await typeWriter('Server_connection................OK\\nAntenna_translators..............OK\\nMain_transformer.................OFF\\nNorth_Line.......................ERROR\\nWest_Line........................ERROR\\nAgents_online....................16/152\\nStatus: POWER OUTAGES');
+                await typeWriter('Diagnostic. . .');
+                await showLoader(3500);
+                let statusMsg = 'Server_connection................OK\\nAntenna_translators..............OK\\nMain_transformer.................OFF\\nNorth_Line.......................ERROR\\nWest_Line........................ERROR';
+                if (isAuth) {
+                    statusMsg += '\\nAgents_online....................16/152';
                 }
+                statusMsg += '\\nStatus: POWER OUTAGES';
+                await typeWriter(statusMsg);
             } else if (command === 'clear') {
                 history.innerHTML = '';
             } else if (command === 'logout') {
@@ -150,6 +146,25 @@ input.addEventListener('keydown', async (e) => {
                 await showLoader(1500);
                 history.innerHTML = '';
                 window.onload();
+            } 
+            // ИСПРАВЛЕНО: Теперь используем переменную 'command' вместо несуществующей 'cmd'
+            else if (command === 'ls' || command === 'files') {
+                if (!isAuth) {
+                    await typeWriter('ACCESS DENIED');
+                } else {
+                    await typeWriter('To download file type "get [FILENAME]"\\nAvailable files:\\nTEST.TXT');
+                }
+            } else if (command.startsWith('get ')) {
+                if (!isAuth) {
+                    await typeWriter('ERROR: Unauthorized download attempt.');
+                } else {
+                    const fileName = val.split(' ')[1];
+                    await typeWriter(`Downloading ${fileName} . . .`);
+                    // ИСПРАВЛЕНО: добавлена косая черта между папкой и именем файла
+                    downloadFile(`../files/${fileName}`, fileName);
+                    await showLoader(1000);
+                    await typeWriter('Done.')
+                }
             } else {
                 await typeWriter(`ERROR: Command "${command}" not recognized.`);
             }
