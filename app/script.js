@@ -10,18 +10,8 @@ let curStep = 'system';
 const regdata = { user: 'observer012', password: 'pan'}
 
 import { getDateTime } from "../modules/date.js";
-
-// Функция для чтения лог файлов
-async function readLogFile(fileName) {
-    try {
-        const response = await fetch(`../logs/${fileName}`);
-        if (!response.ok) throw new Error('File not found');
-        const text = await response.text();
-        return text.replace(/\r?\n/g, '\\n');
-    } catch (err) {
-        return `ERROR: Could not open log file "${fileName}". Check if it exists.`;
-    }
-}
+import { readLogFile } from "../modules/Readlog.js";
+import { downloadFile } from "../modules/Download.js";
 
 // Приветсвенное сообщение
 window.onload = async () => {
@@ -76,16 +66,6 @@ async function typeWriter(text, speed = 30) {
     }
 }
 
-// Функция для скачивания файлов
-function downloadFile(filePath, fileName) {
-    const link = document.createElement('a');
-    link.href = filePath;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
 input.addEventListener('keydown', async (e) => {
     if (e.key === 'Enter') {
         const val = input.value.trim();
@@ -109,7 +89,14 @@ input.addEventListener('keydown', async (e) => {
                 await showLoader(1000);
                 await typeWriter('waiting for password. . .');
             } else {
-                await typeWriter('Unknown user ID. Connection reset.');
+                terminal.classList.add('glitch-error');
+
+                await typeWriter('ACCESS DENIED');
+
+                setTimeout(() => {
+                    terminal.classList.remove('glitch-error');
+                }, 1000);
+                
                 curStep = 'system';
             }
             return;
@@ -127,11 +114,18 @@ input.addEventListener('keydown', async (e) => {
                 await typeWriter(`Welcome to main Automated Antenna Communication Service.\\nYou're logged in as "Observer 012"\\n${dateStr}\\nYour IP address 127.1.1.0\\nType "help" for command list.`)
                 input.focus();
             } else {
-                await typeWriter('Invalid password. Access denied.');
+                terminal.classList.add('glitch-error');
+        
+                await typeWriter(history, terminal, 'ACCESS DENIED');
+        
+                setTimeout(() => {
+                    terminal.classList.remove('glitch-error');
+                }, 1000);
+
                 curStep = 'system';
-            }
-            return;
-        }
+                    }
+                    return;
+                }
         else if (curStep === 'system') {
             const args = val.split(' ');
             const command = args[0].toLowerCase();
