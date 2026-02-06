@@ -11,6 +11,19 @@ const regdata = { user: 'observer012', password: 'pan'}
 
 import { getDateTime } from "../modules/date.js";
 
+// Функция для чтения лог файлов
+async function readLogFile(fileName) {
+    try {
+        const response = await fetch(`../logs/${fileName}`);
+        if (!response.ok) throw new Error('File not found');
+        const text = await response.text();
+        return text.replace(/\r?\n/g, '\\n');
+    } catch (err) {
+        return `ERROR: Could not open log file "${fileName}". Check if it exists.`;
+    }
+}
+
+// Приветсвенное сообщение
 window.onload = async () => {
     input.blur();
     await showLoader(1500);
@@ -19,6 +32,7 @@ window.onload = async () => {
     input.focus();
 }
 
+//Скрытие пароля звездочками
 input.addEventListener('input', () => {
     if (curStep === 'auth_password') {
         typerText.textContent = "*".repeat(input.value.length);
@@ -27,6 +41,7 @@ input.addEventListener('input', () => {
     }
 });
 
+// Загрузчик "Палочка"
 async function showLoader(duration = 1500) {
     const loaderLine = document.createElement('div');
     loaderLine.className = 'line';
@@ -43,6 +58,7 @@ async function showLoader(duration = 1500) {
     loaderLine.remove();
 }
 
+// Писаетль ответов для юзера
 async function typeWriter(text, speed = 30) {
     const line = document.createElement('div');
     line.className = 'line';
@@ -60,6 +76,7 @@ async function typeWriter(text, speed = 30) {
     }
 }
 
+// Функция для скачивания файлов
 function downloadFile(filePath, fileName) {
     const link = document.createElement('a');
     link.href = filePath;
@@ -85,6 +102,7 @@ input.addEventListener('keydown', async (e) => {
         
         await showLoader(1000); 
 
+        // Начало авторизации
         if (curStep === 'auth_login') {
             if(val.toLowerCase() === regdata.user) {
                 curStep = 'auth_password';
@@ -94,6 +112,7 @@ input.addEventListener('keydown', async (e) => {
                 await typeWriter('Unknown user ID. Connection reset.');
                 curStep = 'system';
             }
+            return;
         }
         else if (curStep === 'auth_password') {
             if (val === regdata.password) {
@@ -111,9 +130,11 @@ input.addEventListener('keydown', async (e) => {
                 await typeWriter('Invalid password. Access denied.');
                 curStep = 'system';
             }
+            return;
         }
         else if (curStep === 'system') {
-            const command = val.toLowerCase();
+            const args = val.split(' ');
+            const command = args[0].toLowerCase();
 
             if (command === 'login') {
                 if (isAuth) {
@@ -122,14 +143,38 @@ input.addEventListener('keydown', async (e) => {
                     curStep = 'auth_login';
                     await typeWriter('Enter user ID: ');
                 }
+                return;
             } 
+            // --ОСНОВНЫЕ КОМАНДЫ--
             else if (command === 'help') {
                 if (!isAuth) {
-                    await typeWriter('Commands:\\nLOGIN\\nLOGS\\nSTATUS\\nCLEAR');
+                    await typeWriter('Commands:\\nLOGIN\\nSTATUS\\nCLEAR');
                 } else {
                     await typeWriter('Commands:\\nLOGS\\nFILES\\nSTATUS\\nLOGOUT\\nCLEAR');
                 }
-            } else if (command === 'status') {
+                return;
+            } if (command === 'logs') {
+                if (!isAuth) {
+                    await typeWriter('ACCESS DENIED');
+                } else {
+                    await showLoader(2000);
+                    await typeWriter('AVAILABLE LOGS:\\n- LOG01.TXT\\n\\nType "log [name]" to read.');
+                }
+                return;
+            } if (command === 'log') {
+                if (!isAuth) {
+                    await typeWriter('ACCESS DENIED');
+                } else if (!args[1]) {
+                    await typeWriter('USAGE: log [filename.txt]');
+                } else {
+                    await typeWriter(`READING ${args[1]}...`);
+                    await showLoader(2000);
+                    const content = await readLogFile(args[1]);
+                    await typeWriter(content);
+                }
+                return;
+            }
+            else if (command === 'status') {
                 await typeWriter('Diagnostic. . .');
                 await showLoader(3500);
                 let statusMsg = 'Server_connection................OK\\nAntenna_translators..............OK\\nMain_transformer.................OFF\\nNorth_Line.......................ERROR\\nWest_Line........................ERROR';
@@ -138,33 +183,36 @@ input.addEventListener('keydown', async (e) => {
                 }
                 statusMsg += '\\nStatus: POWER OUTAGES';
                 await typeWriter(statusMsg);
+                return;
             } else if (command === 'clear') {
                 history.innerHTML = '';
+                window.onload();
             } else if (command === 'logout') {
                 isAuth = false;
                 await typeWriter('Session terminated.');
                 await showLoader(1500);
                 history.innerHTML = '';
                 window.onload();
+                return;
             } 
-            // ИСПРАВЛЕНО: Теперь используем переменную 'command' вместо несуществующей 'cmd'
             else if (command === 'ls' || command === 'files') {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
                 } else {
                     await typeWriter('To download file type "get [FILENAME]"\\nAvailable files:\\nTEST.TXT');
                 }
-            } else if (command.startsWith('get ')) {
+                return;
+            } else if (command.startsWith('get')) {
                 if (!isAuth) {
-                    await typeWriter('ERROR: Unauthorized download attempt.');
+                    await typeWriter('ACCESS DENIED');
                 } else {
                     const fileName = val.split(' ')[1];
                     await typeWriter(`Downloading ${fileName} . . .`);
-                    // ИСПРАВЛЕНО: добавлена косая черта между папкой и именем файла
                     downloadFile(`../files/${fileName}`, fileName);
                     await showLoader(1000);
                     await typeWriter('Done.')
                 }
+                return;
             } else {
                 await typeWriter(`ERROR: Command "${command}" not recognized.`);
             }
