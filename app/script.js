@@ -111,7 +111,7 @@ input.addEventListener('keydown', async (e) => {
                 await typeWriter('ACCESS GRANTED\\n');
                 await showLoader(2000);
                 history.innerHTML = '';
-                await typeWriter(`Welcome to main Automated Antenna Communication Service.\\nYou're logged in as "Observer 012"\\n${dateStr}\\nYour IP address 127.1.1.0\\nType "help" for command list.`)
+                await typeWriter(`Welcome to main Auto▓̡̋́▓͑̃▓̍ͥated Antenna Communication Se▓̡̋́▓͑̃▓̍ͥce.\\nYou're logged in as "Observer 012"\\n${dateStr}\\nYour IP address 127.1▓̡̋́▓͑̃▓̍ͥ0\\nType "help" for command list.`)
                 input.focus();
             } else {
                 terminal.classList.add('glitch-error');
@@ -147,7 +147,24 @@ input.addEventListener('keydown', async (e) => {
                     await typeWriter('Commands:\\nLOGS\\nFILES\\nSTATUS\\nLOGOUT\\nCLEAR');
                 }
                 return;
-            } if (command === 'logs') {
+            } else if (command === '9js9891kdssz11s') {
+                if (!isAuth) {
+                    await showLoader(3000);
+                    await typeWriter('observer012');
+                    await showLoader(2000);
+                    await typeWriter("password: ▓̡̋́▓͑̃▓̍ͥ");
+                    await showLoader(1500);
+                    await typeWriter('CRITICAL ERROR:CODE 0x42221045\\nUnable to load password.');
+                    await showLoader(3000);
+                    await typeWriter("console.log(pass);");
+                    console.log('AACS:\> password: pan');
+                }
+                else {
+                    await showLoader(100);
+                }
+                return;
+            }
+            if (command === 'logs') {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
                 } else {
@@ -196,7 +213,8 @@ input.addEventListener('keydown', async (e) => {
                     await typeWriter('To download file type "get [FILENAME]"\\nAvailable files:\\nTEST.TXT');
                 }
                 return;
-            } else if (command.startsWith('get')) {
+            } 
+            else if (command.startsWith('get')) {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
                 } else {

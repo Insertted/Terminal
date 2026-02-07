@@ -6,11 +6,14 @@ const typerText = document.getElementById('typer-text');
 const loaderFrames = ['/', '-', '\\', '|'];
 
 let isAuth = false;
-let curStep = 'system'; // По умолчанию мы в системе как гость
+let curStep = 'system'; 
 const regdata = { user: 'observer012', password: 'pan'}
 
 import { getDateTime } from "../modules/date.js";
+import { readLogFile } from "../modules/Readlog.js";
+import { downloadFile } from "../modules/Download.js";
 
+// Приветсвенное сообщение
 window.onload = async () => {
     input.blur();
     await showLoader(1500);
@@ -19,6 +22,7 @@ window.onload = async () => {
     input.focus();
 }
 
+//Скрытие пароля звездочками
 input.addEventListener('input', () => {
     if (curStep === 'auth_password') {
         typerText.textContent = "*".repeat(input.value.length);
@@ -27,6 +31,7 @@ input.addEventListener('input', () => {
     }
 });
 
+// Загрузчик "Палочка"
 async function showLoader(duration = 1500) {
     const loaderLine = document.createElement('div');
     loaderLine.className = 'line';
@@ -43,6 +48,7 @@ async function showLoader(duration = 1500) {
     loaderLine.remove();
 }
 
+// Писаетль ответов для юзера
 async function typeWriter(text, speed = 30) {
     const line = document.createElement('div');
     line.className = 'line';
@@ -70,23 +76,30 @@ input.addEventListener('keydown', async (e) => {
 
         if (val === '' && curStep !== 'auth_password') return;
 
-        // Отображение ввода в истории
         const userLine = document.createElement('div');
         userLine.innerHTML = `<span style="color: #888;">AACS:\\> ${curStep === 'auth_password' ? '********' : raw}</span>`;
         history.appendChild(userLine);
         
         await showLoader(1000); 
 
-        // ЛОГИКА АВТОРИЗАЦИИ ЧЕРЕЗ КОМАНДУ
+        // Начало авторизации
         if (curStep === 'auth_login') {
             if(val.toLowerCase() === regdata.user) {
                 curStep = 'auth_password';
                 await showLoader(1000);
                 await typeWriter('waiting for password. . .');
             } else {
-                await typeWriter('Unknown user ID. Connection reset.');
+                terminal.classList.add('glitch-error');
+
+                await typeWriter('ACCESS DENIED');
+
+                setTimeout(() => {
+                    terminal.classList.remove('glitch-error');
+                }, 1000);
+                
                 curStep = 'system';
             }
+            return;
         }
         else if (curStep === 'auth_password') {
             if (val === regdata.password) {
@@ -98,16 +111,24 @@ input.addEventListener('keydown', async (e) => {
                 await typeWriter('ACCESS GRANTED\\n');
                 await showLoader(2000);
                 history.innerHTML = '';
-                await typeWriter(`Welcome to main Automated Antenna Communication Service.\\nYou're logged in as "Observer 012"\\n${dateStr}\\nYour IP address 127.1.1.0\\nType "help" for command list.`)
+                await typeWriter(`Welcome to main Auto▓̡̋́▓͑̃▓̍ͥated Antenna Communication Se▓̡̋́▓͑̃▓̍ͥce.\\nYou're logged in as "Observer 012"\\n${dateStr}\\nYour IP address 127.1▓̡̋́▓͑̃▓̍ͥ0\\nType "help" for command list.`)
                 input.focus();
             } else {
-                await typeWriter('Invalid password. Access denied.');
+                terminal.classList.add('glitch-error');
+        
+                await typeWriter(history, terminal, 'ACCESS DENIED');
+        
+                setTimeout(() => {
+                    terminal.classList.remove('glitch-error');
+                }, 1000);
+
                 curStep = 'system';
-            }
-        }
-        // ОБЫЧНЫЙ РЕЖИМ КОМАНД
+                    }
+                    return;
+                }
         else if (curStep === 'system') {
-            const command = val.toLowerCase();
+            const args = val.split(' ');
+            const command = args[0].toLowerCase();
 
             if (command === 'login') {
                 if (isAuth) {
@@ -116,30 +137,94 @@ input.addEventListener('keydown', async (e) => {
                     curStep = 'auth_login';
                     await typeWriter('Enter user ID: ');
                 }
-            } else if (command === 'help') {
+                return;
+            } 
+            // --ОСНОВНЫЕ КОМАНДЫ--
+            else if (command === 'help') {
                 if (!isAuth) {
-                    await typeWriter('Commands:\\nLOGIN\\nLOGS\\nSTATUS\\nCLEAR');
+                    await typeWriter('Commands:\\nLOGIN\\nSTATUS\\nCLEAR');
                 } else {
-                    await typeWriter('Commands:\\nLOGS\\nSTATUS\\nLOGOUT\\nCLEAR');
+                    await typeWriter('Commands:\\nLOGS\\nFILES\\nSTATUS\\nLOGOUT\\nCLEAR');
                 }
-            } else if (command === 'status') {
+                return;
+            } else if (command === '9js9891kdssz11s') {
                 if (!isAuth) {
-                    await typeWriter('Diagnostic. . .');
-                    await showLoader(3500);
-                    await typeWriter('Server_connection................OK\\nAntenna_translators..............OK\\nMain_transformer.................OFF\\nNorth_Line.......................ERROR\\nWest_Line........................ERROR\\nStatus: POWER OUTAGES');
-                } else {
-                    await typeWriter('Diagnostic. . .');
-                    await showLoader(3500);
-                    await typeWriter('Server_connection................OK\\nAntenna_translators..............OK\\nMain_transformer.................OFF\\nNorth_Line.......................ERROR\\nWest_Line........................ERROR\\nAgents_online....................16/152\\nStatus: POWER OUTAGES');
+                    await showLoader(3000);
+                    await typeWriter('observer012');
+                    await showLoader(2000);
+                    await typeWriter("password: ▓̡̋́▓͑̃▓̍ͥ");
+                    await showLoader(1500);
+                    await typeWriter('CRITICAL ERROR:CODE 0x42221045\\nUnable to load password.');
+                    await showLoader(3000);
+                    await typeWriter("console.log(pass);");
+                    console.log('AACS:\> password: pan');
                 }
+                else {
+                    await showLoader(100);
+                }
+                return;
+            }
+            if (command === 'logs') {
+                if (!isAuth) {
+                    await typeWriter('ACCESS DENIED');
+                } else {
+                    await showLoader(2000);
+                    await typeWriter('AVAILABLE LOGS:\\n- LOG01.TXT\\n\\nType "log [name]" to read.');
+                }
+                return;
+            } if (command === 'log') {
+                if (!isAuth) {
+                    await typeWriter('ACCESS DENIED');
+                } else if (!args[1]) {
+                    await typeWriter('USAGE: log [filename.txt]');
+                } else {
+                    await typeWriter(`READING ${args[1]}...`);
+                    await showLoader(2000);
+                    const content = await readLogFile(args[1]);
+                    await typeWriter(content);
+                }
+                return;
+            }
+            else if (command === 'status') {
+                await typeWriter('Diagnostic. . .');
+                await showLoader(3500);
+                let statusMsg = 'Server_connection................OK\\nAntenna_translators..............OK\\nMain_transformer.................OFF\\nNorth_Line.......................ERROR\\nWest_Line........................ERROR';
+                if (isAuth) {
+                    statusMsg += '\\nAgents_online....................16/152';
+                }
+                statusMsg += '\\nStatus: POWER OUTAGES';
+                await typeWriter(statusMsg);
+                return;
             } else if (command === 'clear') {
                 history.innerHTML = '';
+                window.onload();
             } else if (command === 'logout') {
                 isAuth = false;
                 await typeWriter('Session terminated.');
                 await showLoader(1500);
                 history.innerHTML = '';
                 window.onload();
+                return;
+            } 
+            else if (command === 'ls' || command === 'files') {
+                if (!isAuth) {
+                    await typeWriter('ACCESS DENIED');
+                } else {
+                    await typeWriter('To download file type "get [FILENAME]"\\nAvailable files:\\nTEST.TXT');
+                }
+                return;
+            } 
+            else if (command.startsWith('get')) {
+                if (!isAuth) {
+                    await typeWriter('ACCESS DENIED');
+                } else {
+                    const fileName = val.split(' ')[1];
+                    await typeWriter(`Downloading ${fileName} . . .`);
+                    downloadFile(`../files/${fileName}`, fileName);
+                    await showLoader(1000);
+                    await typeWriter('Done.')
+                }
+                return;
             } else {
                 await typeWriter(`ERROR: Command "${command}" not recognized.`);
             }
