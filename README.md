@@ -1,2 +1,2 @@
-# Terminal
-Simple site html/css, JS and some graphics
+# AACS TERMINAL
+[AACS LOGO](./app/RKN.png)
