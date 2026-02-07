@@ -1,2 +1,2 @@
 # AACS TERMINAL
-[AACS LOGO](./app/RKN.png)
+![AACS LOGO](./app/RKN.png)
