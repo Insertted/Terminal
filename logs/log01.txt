@@ -1,2 +1,26 @@
 <Log01>
-Hello World!
+Admin01 - Hello World!
+Last_Rite - Проверил?
+Admin01 - Да, можем запускать.
+Last_Rite - Понял, поднимаю сервера.
+DETECTED NEW CONNECTION
+ID NAME: [SERVER611_NORTH], [SERVER613_NORTH], [SERVER551_NORTH], [SERVER911_WEST]
+UNEXPECTED ERROR
+UNABLE CONNECT TO SERVER => [SERVER911_WEST] , ERROR_CODE: 0x8882341A
+. . .
+. . .
+Last_Rite - Пиздец.
+Last_Rite - У этих клоунов сервер лёг.
+Admin01 - Чем они вообще там занимаются?!
+Last_Rite - Хуй его знает, я отправлю своих ребят разобраться.
+Last_Rite - Запуск переносится, ложи серваки чтобы нас не спалили.
+Admin01 - Пиздец, ладно я понял.
+Last_Rite - Завтра в это же время.
+AACS:/> CONNECTION LOST.
+. . .
+. . .
+UNEXPECTED ERROR
+UNABLE CONNECT TO SERVER => [SERVER611_NORTH], [SERVER613_NORTH], [SERVER551_NORTH], [SERVER911_WEST] , ERROR_CODE: 0x8882341A
+sudo shutdown
+SHUTTING DOWN. . .
+<Log01>
