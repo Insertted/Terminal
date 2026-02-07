@@ -169,7 +169,7 @@ input.addEventListener('keydown', async (e) => {
                     await typeWriter('ACCESS DENIED');
                 } else {
                     await showLoader(2000);
-                    await typeWriter('AVAILABLE LOGS:\\n- LOG01.TXT\\n\\nType "log [name]" to read.');
+                    await typeWriter('AVAILABLE LOGS:\\n- LOG01.TXT\\n- ASCII_ART_QUEEN.TXT\\n\\nType "log [name]" to read.');
                 }
                 return;
             } if (command === 'log') {
@@ -210,7 +210,7 @@ input.addEventListener('keydown', async (e) => {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
                 } else {
-                    await typeWriter('To download file type "get [FILENAME]"\\nAvailable files:\\nTEST.TXT');
+                    await typeWriter('To download file type "get [FILENAME]"\\nAvailable files:\\n- TEST.TXT\\n- RKN_F.JPG');
                 }
                 return;
             } 
