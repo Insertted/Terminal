@@ -210,7 +210,7 @@ input.addEventListener('keydown', async (e) => {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
                 } else {
-                    await typeWriter('To download file type "get [FILENAME]"\\nAvailable files:\\n- TEST.TXT\\n- RKN_F.JPG');
+                    await typeWriter('Available files:\\n- TEST.TXT\\n- RKN_F.JPG\\n\\nType "get [name]" to download file.');
                 }
                 return;
             } 
