@@ -49,7 +49,7 @@ async function showLoader(duration = 1500) {
 }
 
 // Писаетль ответов для юзера
-async function typeWriter(text, speed = 30) {
+async function typeWriter(text, speed = 24) {
     const line = document.createElement('div');
     line.className = 'line';
     history.appendChild(line);
@@ -153,7 +153,7 @@ input.addEventListener('keydown', async (e) => {
                     await typeWriter('observer012');
                     await showLoader(2000);
                     await typeWriter("password: ▓̡̋́▓͑̃▓̍ͥ");
-                    await showLoader(1500);
+                    await showLoader(500);
                     await typeWriter('CRITICAL ERROR:CODE 0x42221045\\nUnable to load password.');
                     await showLoader(3000);
                     await typeWriter("console.log(pass);");
