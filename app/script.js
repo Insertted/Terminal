@@ -49,7 +49,7 @@ async function showLoader(duration = 1500) {
 }
 
 // Писаетль ответов для юзера
-async function typeWriter(text, speed = 24) {
+async function typeWriter(text, speed = 27) {
     const line = document.createElement('div');
     line.className = 'line';
     history.appendChild(line);
