@@ -49,7 +49,7 @@ async function showLoader(duration = 1500) {
 }
 
 // Писаетль ответов для юзера
-async function typeWriter(text, speed = 30) {
+async function typeWriter(text, speed = 27) {
     const line = document.createElement('div');
     line.className = 'line';
     history.appendChild(line);
@@ -111,7 +111,7 @@ input.addEventListener('keydown', async (e) => {
                 await typeWriter('ACCESS GRANTED\\n');
                 await showLoader(2000);
                 history.innerHTML = '';
-                await typeWriter(`Welcome to main Auto▓̡̋́▓͑̃▓̍ͥated Antenna Communication Se▓̡̋́▓͑̃▓̍ͥce.\\nYou're logged in as "Observer 012"\\n${dateStr}\\nYour IP address 127.1▓̡̋́▓͑̃▓̍ͥ0\\nType "help" for command list.`)
+                await typeWriter(`Welcome to main Auto▓͑̃▓̍ͥated Antenna Communication Se▓̡̋́▓̍ͥce.\\nYou're logged in as "Observer 012"\\n${dateStr}\\nYour IP address 127.1▓̡̋́0\\nType "help" for command list.`)
                 input.focus();
             } else {
                 terminal.classList.add('glitch-error');
@@ -152,8 +152,8 @@ input.addEventListener('keydown', async (e) => {
                     await showLoader(3000);
                     await typeWriter('observer012');
                     await showLoader(2000);
-                    await typeWriter("password: ▓̡̋́▓͑̃▓̍ͥ");
-                    await showLoader(1500);
+                    await typeWriter("password: ▓̡̋́▓̍ͥ");
+                    await showLoader(500);
                     await typeWriter('CRITICAL ERROR:CODE 0x42221045\\nUnable to load password.');
                     await showLoader(3000);
                     await typeWriter("console.log(pass);");
@@ -169,7 +169,7 @@ input.addEventListener('keydown', async (e) => {
                     await typeWriter('ACCESS DENIED');
                 } else {
                     await showLoader(2000);
-                    await typeWriter('AVAILABLE LOGS:\\n- LOG01.TXT\\n\\nType "log [name]" to read.');
+                    await typeWriter('AVAILABLE LOGS:\\n- log01.txt\\n- ascii_art_queen.txt\\n- log02.txt\\n\\nType "log [name]" to read.');
                 }
                 return;
             } if (command === 'log') {
@@ -190,7 +190,7 @@ input.addEventListener('keydown', async (e) => {
                 await showLoader(3500);
                 let statusMsg = 'Server_connection................OK\\nAntenna_translators..............OK\\nMain_transformer.................OFF\\nNorth_Line.......................ERROR\\nWest_Line........................ERROR';
                 if (isAuth) {
-                    statusMsg += '\\nAgents_online....................16/152';
+                    statusMsg += '\\nAgents_online....................53/152';
                 }
                 statusMsg += '\\nStatus: POWER OUTAGES';
                 await typeWriter(statusMsg);
@@ -210,7 +210,7 @@ input.addEventListener('keydown', async (e) => {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
                 } else {
-                    await typeWriter('To download file type "get [FILENAME]"\\nAvailable files:\\nTEST.TXT');
+                    await typeWriter('Available files:\\n- test.txt\\n- rkn_f.jpg\\n- attack_rkn.mp4\\n\\nType "get [name]" to download file.');
                 }
                 return;
             } 
