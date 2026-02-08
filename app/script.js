@@ -12,6 +12,7 @@ const regdata = { user: 'observer012', password: 'pan'}
 import { getDateTime } from "../modules/date.js";
 import { readLogFile } from "../modules/Readlog.js";
 import { downloadFile } from "../modules/Download.js";
+import { triggerScreamer } from "../modules/screamer.js";
 
 // Приветсвенное сообщение
 window.onload = async () => {
@@ -148,7 +149,9 @@ input.addEventListener('keydown', async (e) => {
                 }
                 return;
             } else if (command === '9js9891kdssz11s') {
+
                 if (!isAuth) {
+                    await triggerScreamer();
                     await showLoader(3000);
                     await typeWriter('observer012');
                     await showLoader(2000);
