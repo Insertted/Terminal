@@ -7,12 +7,12 @@ const loaderFrames = ['/', '-', '\\', '|'];
 
 let isAuth = false;
 let curStep = 'system'; 
-const regdata = { user: 'observer012', password: 'pan'}
 
 import { getDateTime } from "../modules/date.js";
 import { readLogFile } from "../modules/Readlog.js";
 import { downloadFile } from "../modules/Download.js";
 import { triggerScreamer } from "../modules/screamer.js";
+import { regdata } from "../modules/files.js";
 
 // Приветсвенное сообщение
 window.onload = async () => {

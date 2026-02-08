@@ -1,0 +1,1 @@
+export const regdata = { user: 'observer012', password: 'pan'};
