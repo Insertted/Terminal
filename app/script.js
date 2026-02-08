@@ -111,7 +111,7 @@ input.addEventListener('keydown', async (e) => {
                 await typeWriter('ACCESS GRANTED\\n');
                 await showLoader(2000);
                 history.innerHTML = '';
-                await typeWriter(`Welcome to main Auto▓̡̋́▓͑̃▓̍ͥated Antenna Communication Se▓̡̋́▓͑̃▓̍ͥce.\\nYou're logged in as "Observer 012"\\n${dateStr}\\nYour IP address 127.1▓̡̋́▓͑̃▓̍ͥ0\\nType "help" for command list.`)
+                await typeWriter(`Welcome to main Auto▓͑̃▓̍ͥated Antenna Communication Se▓̡̋́▓̍ͥce.\\nYou're logged in as "Observer 012"\\n${dateStr}\\nYour IP address 127.1▓̡̋́0\\nType "help" for command list.`)
                 input.focus();
             } else {
                 terminal.classList.add('glitch-error');
@@ -152,7 +152,7 @@ input.addEventListener('keydown', async (e) => {
                     await showLoader(3000);
                     await typeWriter('observer012');
                     await showLoader(2000);
-                    await typeWriter("password: ▓̡̋́▓͑̃▓̍ͥ");
+                    await typeWriter("password: ▓̡̋́▓̍ͥ");
                     await showLoader(500);
                     await typeWriter('CRITICAL ERROR:CODE 0x42221045\\nUnable to load password.');
                     await showLoader(3000);
