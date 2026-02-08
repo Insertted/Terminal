@@ -169,7 +169,7 @@ input.addEventListener('keydown', async (e) => {
                     await typeWriter('ACCESS DENIED');
                 } else {
                     await showLoader(2000);
-                    await typeWriter('AVAILABLE LOGS:\\n- LOG01.TXT\\n- ASCII_ART_QUEEN.TXT\\n\\nType "log [name]" to read.');
+                    await typeWriter('AVAILABLE LOGS:\\n- log01.txt\\n- ascii_art_queen.txt\\n- log02.txt\\n\\nType "log [name]" to read.');
                 }
                 return;
             } if (command === 'log') {
@@ -190,7 +190,7 @@ input.addEventListener('keydown', async (e) => {
                 await showLoader(3500);
                 let statusMsg = 'Server_connection................OK\\nAntenna_translators..............OK\\nMain_transformer.................OFF\\nNorth_Line.......................ERROR\\nWest_Line........................ERROR';
                 if (isAuth) {
-                    statusMsg += '\\nAgents_online....................16/152';
+                    statusMsg += '\\nAgents_online....................53/152';
                 }
                 statusMsg += '\\nStatus: POWER OUTAGES';
                 await typeWriter(statusMsg);
@@ -210,7 +210,7 @@ input.addEventListener('keydown', async (e) => {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
                 } else {
-                    await typeWriter('Available files:\\n- TEST.TXT\\n- RKN_F.JPG\\n\\nType "get [name]" to download file.');
+                    await typeWriter('Available files:\\n- test.txt\\n- rkn_f.jpg\\n- attack_rkn.mp4\\n\\nType "get [name]" to download file.');
                 }
                 return;
             } 
