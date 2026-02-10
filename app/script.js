@@ -81,7 +81,7 @@ input.addEventListener('keydown', async (e) => {
         userLine.innerHTML = `<span style="color: #888;">AACS:\\> ${curStep === 'auth_password' ? '********' : raw}</span>`;
         history.appendChild(userLine);
         
-        await showLoader(1000); 
+        await showLoader(1000);
 
         // Начало авторизации
         if (curStep === 'auth_login') {
@@ -128,6 +128,13 @@ input.addEventListener('keydown', async (e) => {
                     return;
                 }
         else if (curStep === 'system') {
+
+            // Чтобы звук работал
+            const Static = document.getElementById('static');
+            if (Static && Static) {
+                Static.play().catch();
+            }
+
             const args = val.split(' ');
             const command = args[0].toLowerCase();
 
