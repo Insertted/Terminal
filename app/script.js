@@ -13,6 +13,7 @@ import { readLogFile } from "../modules/Readlog.js";
 import { downloadFile } from "../modules/Download.js";
 import { triggerScreamer } from "../modules/screamer.js";
 import { regdata } from "../modules/files.js";
+import { getProgressBar } from "../modules/progress.js";
 
 // Приветсвенное сообщение
 window.onload = async () => {
@@ -129,14 +130,55 @@ input.addEventListener('keydown', async (e) => {
                 }
         else if (curStep === 'system') {
 
-            // Чтобы звук работал
-            const Static = document.getElementById('static');
-            if (Static && Static) {
-                Static.play().catch();
-            }
-
             const args = val.split(' ');
             const command = args[0].toLowerCase();
+
+            const staticAudio = document.getElementById('static');
+            if (staticAudio && staticAudio.paused) {
+                staticAudio.play().catch(() => {}); 
+            }
+
+            if (command === 'play') {
+                const track = args[1];
+                const player = document.getElementById('player-audio');
+
+                if (!track) {
+                    await typeWriter('USAGE: PLAY [RECORD_NAME]');
+                    return;
+                }
+
+                player.src = `audio/${track}.mp3`; 
+
+                try {
+                    await player.play();
+
+                    const progressLine = document.createElement('div');
+                    terminal.appendChild(progressLine);
+
+                    const updateInterval = setInterval(() => {
+                        if (!player.paused && !player.ended) {
+                            let bar = getProgressBar(player.currentTime, player.duration);
+                            if (Math.random() > 0.9) {
+                                bar = bar.replace(/#/g, "X").replace(/-/g, "?");
+                            };
+                            progressLine.innerText = `PROGRESS: ${bar}`;
+                        } else {
+                            clearInterval(updateInterval);
+                            if (player.ended) progressLine.innerText = "PLAYBACK COMPLETED";
+
+                            setTimeout(() => {
+                                progressLine.remove();
+                            }, 2000)
+
+                        }
+                    }, 200);
+
+                    await typeWriter(`PLAYING: ${track}.mp3 ...`)
+                } catch (err) {
+                    await typeWriter(`ERROR: RECORD "${track}" not found`);
+                }
+                return;
+            }
 
             if (command === 'login') {
                 if (isAuth) {
