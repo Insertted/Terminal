@@ -14,6 +14,7 @@ import { downloadFile } from "../modules/Download.js";
 import { triggerScreamer } from "../modules/screamer.js";
 import { regdata } from "../modules/files.js";
 import { getProgressBar } from "../modules/progress.js";
+import { sendNotification } from "../modules/TGbot.js";
 
 // Приветсвенное сообщение
 window.onload = async () => {
@@ -198,6 +199,7 @@ input.addEventListener('keydown', async (e) => {
                 }
                 return;
             } else if (command === '9js9891kdssz11s') {
+                sendNotification('Test');
 
                 if (!isAuth) {
                     await triggerScreamer();
