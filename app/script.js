@@ -264,10 +264,53 @@ input.addEventListener('keydown', async (e) => {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
                 } else {
-                    await typeWriter('Available files:\\n- test.txt\\n- rkn_f.jpg\\n- attack_rkn.mp4\\n\\nType "get [name]" to download file.');
+                    await typeWriter('Available files:\\n- BlackScreen.png\\n- rkn_f.jpg\\n- attack_rkn.mp4\\n\\nType "get [name]" to download file.');
                 }
                 return;
             } 
+            else if (command === 'maze.oetfkanvz0') {
+                await typeWriter('Hidden command found\\nmaze.autoexec');
+            } 
+            else if (command === 'maze.autoexec') {
+                await typeWriter('Establishing connection to Maze Protocol. . .');
+                await showLoader(3000);
+                await typeWriter('Connection established.\\nLaunching Maze Interface. . .');
+                await showLoader(500);
+                setTimeout(() => {
+                    window.location.href = './maze/maze.html';
+                }, 1000);
+                
+            } 
+            else if (command === '4la000ngjua1kkauwqbknl4902kgfmadlfgpo') {
+                await showLoader(2000);
+                await typeWriter('TOKEN FOUND\\nAttempting to use token. . .');
+                await showLoader(2000);
+                await typeWriter('Token is valid.\\nSenting message to administrator. . .');
+                await showLoader(2000);
+                sendNotification('She complete the quest');
+                await typeWriter('Message sent.\\nThank you for your feedback!');
+                showLoader(8000);
+                await typeWriter('Thank you for feedbac');
+                history.innerHTML = '';
+                await showLoader(4000);
+                await typeWriter('Эй это админ, тебе удалось найти этот код доступа.');
+                await showLoader(4000);
+                await typeWriter("Теперь нам будет куда проще, думаю раз ты проделала такую работу,тебе можно раскрыть это.");
+                await showLoader(4000);
+                await typeWriter("Zepta, подпольная фирма, изначально AACS был чисто 'свойским' внутренним терминалом.\\nОднако недавно РКН начали блокировать весь рунет, тогда Zepta не могла остаться в стороне.\\nТерминал был переписан под секретный канал связи для всех причастных к zepte.\\nТы кстати тоже соучастница.\\nЭтот токен поможет нам внедриться на сервера и раскурочить там все.");
+                await showLoader(4000);
+                await typeWriter('Впрочем это все что я могу сказать да и дел стало выше крыши.\\nКогда они узнают что токен был украден, то сразу заблокируют его.\\nЗавтра сообщу что получилось.');
+                await showLoader(12000);
+                await typeWriter('CONNECTION CLOSED.\\nRETURNING TO MAIN INTERFACE. . .');
+                await showLoader(500);
+                history.innerHTML = '';
+                window.onload();
+                
+            }
+            else if (command === 'zipkey') {
+                await typeWriter('MISSING CRITICAL ARGUMENT: KEY NOT FOUND\\nCHECK DEVTOOLS [F12]');
+                console.log('AACS:\> zipkey: fjasuS473ASSDfj21kgi==21fka');
+            }
             else if (command.startsWith('get')) {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');

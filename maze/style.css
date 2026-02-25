@@ -1,0 +1,115 @@
+body {
+    background-color: #050505; /* Почти черный фон */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Courier New', monospace;
+}
+
+#status-line {
+    margin-bottom: 10px;
+    color: #0f0; /* Зеленый текст статуса */
+    font-size: 14px;
+    text-shadow: 0 0 5px #0f0;
+}
+
+#maze-container {
+    display: grid;
+    width: 90vmin; 
+    height: 90vmin;
+    background-color: #0a0a0a;
+    border: 2px solid #1a1a1a;
+    /* Убираем жирные границы ячеек, чтобы не рябило */
+}
+
+.cell {
+    width: 100%;
+    height: 100%;
+    background-color: #0a0a0a;
+    border: 0.1px solid #111;
+    box-sizing: border-box;
+    transition: background-color 0.2s; /* Плавное затухание */
+}
+
+/* Пройденный путь */
+.cell.visited {
+    background-color: #111; /* Чуть светлее тумана */
+}
+
+/* Стены проявляются темно-серым при ударе */
+.cell.wall-hit {
+    background-color: #0300a0; 
+    box-shadow: inset 0 0 10px #000;
+}
+
+/* Ловушка — ярко-красная с пульсацией */
+.cell.trap-hit { 
+    background-color: #880000 !important; 
+    animation: pulse 0.5s infinite;
+}
+
+/* Игрок — кислотно-зеленый */
+.cell.player {
+    background-color: #00ff00 !important; 
+    box-shadow: 0 0 15px #00ff00;
+    z-index: 10;
+}
+
+/* Цель — желтая (золотая) */
+.cell.goal {
+    background-color: #ffd700 !important; 
+    box-shadow: 0 0 15px #ffd700;
+}
+
+#hint {
+    margin-top: 15px;
+    color: #333;
+}
+
+@keyframes pulse {
+    0% { background-color: #880000; }
+    50% { background-color: #ff0000; }
+    100% { background-color: #880000; }
+}
+
+#password-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Поверх всего */
+}
+
+.login-box {
+    text-align: center;
+    color: #0f0;
+    border: 1px solid #0f0;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+}
+
+#pass-input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #0f0;
+    color: #0f0;
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    text-align: center;
+    outline: none;
+    margin-top: 15px;
+}
+
+#pass-error {
+    color: #f00;
+    font-size: 12px;
+    margin-top: 10px;
+    display: none; /* Скрыт по умолчанию */
+}

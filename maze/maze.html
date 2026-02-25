@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Секретный Лабиринт</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="password-overlay">
+    <div class="login-box">
+        <h3>RESTRICTED ACCESS</h3>
+        <p>ENTER ACCESS KEY:</p>
+        <input type="password" id="pass-input" autofocus>
+        <div id="pass-error">INVALID KEY. ACCESS DENIED.</div>
+        </div>
+    </div>
+    <div id="maze-container"></div>
+    <div id="controls">
+        <button id="up">↑</button>
+        <button id="left">←</button>
+        <button id="down">↓</button>
+        <button id="right">→</button>
+    </div>
+    <script type="module" src="../modules/Download.js"></script>
+    <script type="module" src="../modules/TGbot.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
