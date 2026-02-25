@@ -272,14 +272,28 @@ input.addEventListener('keydown', async (e) => {
                 await typeWriter('Hidden command found\\nmaze.autoexec');
             } 
             else if (command === 'maze.autoexec') {
-                await typeWriter('Establishing connection to Maze Protocol. . .');
-                await showLoader(3000);
-                await typeWriter('Connection established.\\nLaunching Maze Interface. . .');
-                await showLoader(500);
+                const overlay = document.getElementById('hacking-overlay');
+                const content = document.getElementById('hacking-content');
+                overlay.style.display = 'block';
+
+                const chars = "01010101ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%^&*()_+";
+                const hackInterval = setInterval(() => {
+                    let line = "";
+                    for(let i=0; i<100; i++) {
+                        line += chars.charAt(Math.floor(Math.random() * chars.length));
+                    }
+                    content.innerHTML = `<div>${line}</div>`;
+
+                    overlay.scrollTop = overlay.scrollHeight;
+                }, 100);
+
+                await typeWriter('Initiating maze protocol. . .');
+                await typeWriter('Bypassing firewall. . .');
                 setTimeout(() => {
+                    clearInterval(hackInterval);
                     window.location.href = './maze/maze.html';
-                }, 1000);
-                
+                }, 2000);
+                return;
             } 
             else if (command === '4la000ngjua1kkauwqbknl4902kgfmadlfgpo') {
                 await showLoader(2000);

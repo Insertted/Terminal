@@ -35,6 +35,12 @@ document.getElementById('pass-input').addEventListener('keypress', function (e) 
 
 
 function init() {
+
+    document.body.style.backgroundColor = '#fff'; // Вспышка
+    setTimeout(() => {
+        document.body.style.backgroundColor = '#050505'; // Возврат в темноту
+    }, 100);
+
     // 1. Создаем сетку из стен
     maze = Array(mazeSize).fill(null).map(() => Array(mazeSize).fill(1));
     
@@ -143,7 +149,7 @@ function move(dx, dy) {
         if (cellType === 2) { // ЛОВУШКА
             document.getElementById(`c-${nx}-${ny}`).classList.add('trap-hit');
             setTimeout(() => {
-                alert("ОШИБКА: ЛОВУШКА АКТИВИРОВАНА. СБРОС ДАННЫХ...");
+                alert("FIREWALL BREACHED! Returning to start...");
                 hardReset();
             }, 100);
             return;
