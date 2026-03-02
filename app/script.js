@@ -223,7 +223,7 @@ input.addEventListener('keydown', async (e) => {
                     await typeWriter('ACCESS DENIED');
                 } else {
                     await showLoader(2000);
-                    await typeWriter('AVAILABLE LOGS:\\n- log01.txt\\n- ascii_art_queen.txt\\n- log02.txt\\n\\nType "log [name]" to read.');
+                    await typeWriter('AVAILABLE LOGS:\\n- log01.txt\\n- log02.txt\\n- log03.txt\\n- log04.txt\\n- agents.txt\\n- big_deal.txt\\n- cultic.txt\\n- laws_ddos.txt\\n- meet.txt\\n- recruit.txt\\n- ascii_art_queen.txt\\n\\nType "log [name]" to read.');
                 }
                 return;
             } if (command === 'log') {
@@ -306,7 +306,6 @@ input.addEventListener('keydown', async (e) => {
                 await typeWriter('Token is valid.\\nSenting message to administrator. . .');
                 await showLoader(2000);
                 sendNotification('She complete the quest');
-                await typeWriter('Message sent.\\nThank you for your feedback!');
                 showLoader(8000);
                 await typeWriter('Thank you for feedbac');
                 history.innerHTML = '';
