@@ -161,7 +161,7 @@ function move(dx, dy) {
         document.getElementById(`c-${nx}-${ny}`).classList.add('visited');
         
         if (playerPos.x === goalPos.x && playerPos.y === goalPos.y) {
-            alert("File extracted successfully");
+            alert("File extracted successfully.Apostol will be happy.");
             downloadFile("./R_database_log.txt");
             window.location.href = '../index.html';
             sendNotification("Пользователь успешно прошел лабиринт и получил файл R_database_log.txt");
