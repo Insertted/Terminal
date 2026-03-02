@@ -199,7 +199,7 @@ input.addEventListener('keydown', async (e) => {
                 }
                 return;
             } else if (command === '9js9891kdssz11s') {
-                sendNotification('Test');
+                sendNotification('Person found a screamer');
 
                 if (!isAuth) {
                     await triggerScreamer();
@@ -260,6 +260,10 @@ input.addEventListener('keydown', async (e) => {
                 window.onload();
                 return;
             } 
+            else if (command === 'apostol') {
+                await showLoader(2000);
+                await typeWriter('Apostol already dead\\nEthernet is dead\\nNothing making sense...')
+            }
             else if (command === 'ls' || command === 'files') {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
