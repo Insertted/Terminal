@@ -268,7 +268,7 @@ input.addEventListener('keydown', async (e) => {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
                 } else {
-                    await typeWriter('Available files:\\n- BlackScreen.png\\n- rkn_f.jpg\\n- attack_rkn.mp4\\n\\nType "get [name]" to download file.');
+                    await typeWriter('Available files:\\n- BlackScreen.png\\n- rkn_f.jpg\\n- attack_rkn.mp4\\n- Chronology.txt\\n- house.jpg\\n\\nType "get [name]" to download file.');
                 }
                 return;
             } 
@@ -310,13 +310,13 @@ input.addEventListener('keydown', async (e) => {
                 await typeWriter('Thank you for feedbac');
                 history.innerHTML = '';
                 await showLoader(4000);
-                await typeWriter('Эй это админ, тебе удалось найти этот код доступа.');
+                await typeWriter('Это админ, вижу тебе удалось найти ключ.');
                 await showLoader(4000);
-                await typeWriter("Теперь нам будет куда проще, думаю раз ты проделала такую работу,тебе можно раскрыть это.");
+                await typeWriter("Теперь нам будет куда проще, думаю раз ты проделала такую работу,тебе можно рассказать это.");
                 await showLoader(4000);
-                await typeWriter("Zepta, подпольная фирма, изначально AACS был чисто 'свойским' внутренним терминалом.\\nОднако недавно РКН начали блокировать весь рунет, тогда Zepta не могла остаться в стороне.\\nТерминал был переписан под секретный канал связи для всех причастных к zepte.\\nТы кстати тоже соучастница.\\nЭтот токен поможет нам внедриться на сервера и раскурочить там все.");
+                await typeWriter("Zepta, подпольная фирма, изначально AACS был чисто 'свойским' внутренним терминалом.\\nОднако РКН начали блокировать весь рунет, тогда Zepta не могла остаться в стороне.\\nТерминал был переписан под секретный канал связи для всех причастных к zepte.\\nТы кстати тоже соучастница.\\nЭтот токен поможет нам внедриться на сервера и раскурочить там все.");
                 await showLoader(4000);
-                await typeWriter('Впрочем это все что я могу сказать да и дел стало выше крыши.\\nКогда они узнают что токен был украден, то сразу заблокируют его.\\nЗавтра сообщу что получилось.');
+                await typeWriter('Впрочем это все что я могу сказать да и дел стало выше крыши.\\nКогда они узнают что токен был украден, то сразу заблокируют его.\\nЗавтра сообщу что получилось, передавай от меня привет своему другу FZ.');
                 await showLoader(12000);
                 await typeWriter('CONNECTION CLOSED.\\nRETURNING TO MAIN INTERFACE. . .');
                 await showLoader(500);
