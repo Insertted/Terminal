@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>†_THE_VOID_OS_†</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="crt-overlay"></div>
+    <div class="scanlines"></div>
+
+    <div id="desktop">
+        <div class="icon" onclick="toggleWindow('window-remains')">
+            <div class="icon-img">†</div>
+            <span class="icon-label">REMAINS</span>
+        </div>
+
+        <div class="icon" onclick="document.getElementById('file-authenticator').click()">
+            <div class="icon-img" style="border-color: #ffffff; color: #ffffff;">𓌹𓌺</div>
+            <span class="icon-label">CONTEMPTUM.exe</span>
+        </div>
+
+        <div class="icon" onclick="toggleWindow('window-terminal')">
+            <div class="icon-img">_></div>
+            <span class="icon-label">TERMINAL.EXE</span>
+        </div>
+
+        <div class="icon" onclick="toggleWindow('window-gallery')">
+            <div class="icon-img">👁</div>
+            <span class="icon-label">EYE_WITNESS</span>
+        </div>
+
+        <div class="icon" onclick="toggleWindow('window-logs')">
+            <div class="icon-img">☨</div>
+            <span class="icon-label">FLAY_LOGS</span>
+        </div>
+
+        <div id="window-logs" class="window">
+            <div class="window-header">
+                <span class="window-title">LOG_READER: ACCESS_HISTORY</span>
+                <span class="close-btn" onclick="toggleWindow('window-logs')">[X]</span>
+            </div>
+            <div class="window-content" style="font-size: 11px; color: #00ff00;">
+                <p>[00:00:01] Инициализация ритуала...</p>
+                <p>[00:04:23] Metadata Deacon: Извлечение успешно.</p>
+                <p>[00:06:66] <span style="color: red;">ВНИМАНИЕ: Обнаружена утечка души в секторе 7.</span></p>
+            </div>
+        </div>
+
+        <div id="window-gallery" class="window" style="width: 500px;">
+            <div class="window-header">
+                <span class="window-title">VIEWER: EYE_WITNESS</span>
+                <span class="close-btn" onclick="toggleWindow('window-gallery')">[X]</span>
+            </div>
+            <div class="window-content gallery-grid">
+                <div class="img-slot" onclick="alert('Файл поврежден. Требуется расшифровка...')">
+                    <img src="./images/wow.jpg" alt="IMG_001">
+                    <span>evidence_01.jpg</span>
+                </div>
+                <div class="img-slot">
+                    <div class="corrupted-block"></div>
+                    <span>data_scrt.png</span>
+                </div>
+                <div class="img-slot">
+                    <div class="glitch-block"></div>
+                    <span>unknown_666.mp4</span>
+                </div>
+            </div>
+        </div>
+
+        <input type="file" id="file-authenticator" style="display: none;" onchange="checkKey(this)">
+
+        <div id="window-secret" class="window" style="width: 400px; border-color: #ff0000;">
+            <div class="window-header" style="background: #ff0000; color: #000;">
+                <span class="window-title">DATA_EXTRACTED</span>
+                <span class="close-btn" onclick="toggleWindow('window-secret')">[X]</span>
+            </div>
+            <div class="window-content">
+                <p style="color: #ff0000; font-weight: bold;">[ДОСТУП РАЗРЕШЕН]</p>
+                <p>Здесь может быть твое финальное послание, ссылка на видео или координаты следующей точки.</p>
+            </div>
+        </div>
+
+    <div id="window-terminal" class="window" style="width: 500px; background: #000;">
+        <div class="window-header" style="background: #333; color: #fff;">
+            <span class="window-title">C:\SYSTEM32\VOID_TERM.EXE</span>
+            <span class="close-btn" onclick="toggleWindow('window-terminal')">[X]</span>
+        </div>
+        
+        <div class="window-content" id="terminal-body" style="height: 300px; overflow-y: auto; background: #000; color: #00ff00; font-family: monospace;">
+            <div id="terminal-output">
+                <p>> VOID_OS [Version 0.6.6.6]</p>
+                <p>> Введите 'help' для списка доступных таинств.</p>
+            </div>
+            <div style="display: flex;">
+                <span style="margin-right: 5px;">></span>
+                <input type="text" id="terminal-input" autofocus style="background: none; border: none; color: #00ff00; outline: none; width: 100%; font-family: monospace;">
+            </div>
+        </div>
+    </div>        
+
+        <div id="window-remains" class="window">
+            <div class="window-header">
+                <span class="window-title">DIRECTORY: REMAINS</span>
+                <span class="close-btn" onclick="toggleWindow('window-remains')">[X]</span>
+            </div>
+        <div class="window-content">
+            <p>> Инициализация извлечения данных...</p>
+            <p>> Файлы повреждены или намеренно стерты.</p>
+            <p style="color: #ff00ea;">ERROR: Обнаружено присутствие Свежевателя.</p>
+            <hr>
+            <p>Попробуй найти "Ключ" в аудио-архиве.</p>
+        </div>
+        
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

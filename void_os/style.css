@@ -1,0 +1,145 @@
+body {
+    background-color: #050505;
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+    margin: 0;
+}
+
+/* Эффект старого ЭЛТ-монитора */
+.scanlines {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+#desktop {
+    width: 100vw;
+    height: 100vh;
+    padding: 20px;
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+}
+
+/* Стили иконки */
+.icon {
+    width: 80px;
+    text-align: center;
+    cursor: pointer;
+    margin: 15px;
+    transition: transform 0.1s;
+}
+
+.icon:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 5px #7b00ff);
+}
+
+.icon-img {
+    font-size: 40px;
+    border: 2px solid #fff;
+    margin-bottom: 5px;
+    background: #111;
+}
+
+.icon-label {
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+/* Окно системы */
+.window {
+    display: none;
+    position: absolute;
+    top: 100px; left: 100px;
+    width: 400px;
+    background: #000;
+    border: 1px solid #ffffff;
+    box-shadow: 10px 10px 0px #2d004d;
+    z-index: 5;
+
+    animation: appearance 0.2s ease-out;
+
+}
+
+@keyframes appearance {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.window-header {
+    background: #ffffff;
+    color: #000;
+    padding: 3px 10px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    cursor: move;
+}
+
+.window-content {
+    padding: 15px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.close-btn { cursor: pointer; }
+.close-btn:hover { color: #ff0000; }
+
+/* Сетка для галереи */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    background: #050505;
+}
+
+.img-slot {
+    border: 1px solid #333;
+    padding: 5px;
+    text-align: center;
+    font-size: 9px;
+    cursor: crosshair;
+}
+
+.img-slot img {
+    width: 100%;
+    filter: grayscale(1) contrast(1.5);
+    border-bottom: 1px solid #333;
+    margin-bottom: 5px;
+}
+
+.img-slot:hover {
+    border-color: #7b00ff;
+    color: #ff00ea;
+}
+
+/* Заглушка для "битого" изображения */
+.corrupted-block {
+    width: 100%;
+    height: 80px;
+    background: repeating-linear-gradient(
+      45deg,
+      #000,
+      #000 5px,
+      #1a1a1a 5px,
+      #1a1a1a 10px
+    );
+}
+
+.glitch-block {
+    width: 100%;
+    height: 80px;
+    background: repeating-linear-gradient(
+      45deg,
+      #000,
+      #000 5px,
+      #1a1a1a 5px,
+      #1a1a1a 10px
+    );
+}

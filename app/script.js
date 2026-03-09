@@ -323,8 +323,22 @@ input.addEventListener('keydown', async (e) => {
                 history.innerHTML = '';
                 window.onload();
                 
-            }
-            else if (command === 'zipkey') {
+            } 
+            else if (command === 'connect_void') {
+                await typeWriter('Requesting connection to void. . .');
+                await showLoader(1000);
+                await typeWriter('Hmmm. . .');
+                await showLoader(5000);
+                await typeWriter('Лады, DESPECTUS, в этот раз позволю тебе взглянуть в бездну, смотри внимательно. . .');
+                await showLoader(500);
+                history.innerHTML = '';
+                await typeWriter('IP: 666.6?6.???.666 BANNED.');
+                await showLoader(2000);
+                await typeWriter('Connection established.\\nEntering void. . .');
+                await showLoader(5000);
+                window.location.href = './void_os/index.html';
+                return;
+            } else if (command === 'zipkey') {
                 await typeWriter('MISSING CRITICAL ARGUMENT: KEY NOT FOUND\\nCHECK DEVTOOLS [F12]');
                 console.log('AACS:\> zipkey: fjasuS473ASSDfj21kgi==21fka');
             }
