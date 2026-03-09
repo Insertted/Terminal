@@ -66,26 +66,20 @@ terminalInput.addEventListener('keydown', function(e) {
         let response = "";
         switch(command) {
             case 'help':
-                response = "Доступные команды: help, whoami, extract, status, cls, exit.";
+                response = "Доступные команды: help, whoami, contemptum.exe, status, cls, exit.";
                 break;
-            // Внутри твоего switch(command) в терминале:
-        // Внутри switch(command) в твоем TERMINAL.EXE:
         case 'exit':
             const output = document.getElementById('terminal-output');
             const p = document.createElement('p');
             p.innerHTML = "> ИНИЦИАЛИЗАЦИЯ ВЫХОДА... <span style='color: #ff00ea;'>[СВЯЗЬ РАЗОРВАНА]</span>";
             output.appendChild(p);
 
-            // Эффект "выключения" перед переходом
             setTimeout(() => {
                 document.body.style.transition = "all 0.5s ease";
                 document.body.style.filter = "brightness(0) contrast(2)";
-                document.body.style.transform = "scaleY(0.01)"; // Схлопывание в линию
+                document.body.style.transform = "scaleY(0.01)";
         
                 setTimeout(() => {
-                    // ПЕРЕХОД: Укажи здесь путь к главному файлу AACS.
-                    // Если они в одной папке, просто 'index_aacs.html'
-                    // Если AACS в папке выше, то '../index.html'
                     window.location.href = "../index.html"; 
                 }, 500);
             }, 1000);
@@ -96,7 +90,7 @@ terminalInput.addEventListener('keydown', function(e) {
             case 'status':
                 response = "СОСТОЯНИЕ: Код чист. Вера сильна. Глаз плачет.";
                 break;
-            case 'CONTEMPTUM.exe':
+            case 'contemptum.exe':
                 response = "ОШИБКА: Требуется ключ с физического носителя.(USB-накопитель)";
                 break;
             case 'cls':
@@ -111,10 +105,9 @@ terminalInput.addEventListener('keydown', function(e) {
         respP.textContent = response;
         terminalOutput.appendChild(respP);
         
-        // Автоскролл вниз
         document.getElementById('terminal-body').scrollTop = document.getElementById('terminal-body').scrollHeight;
         
-        this.value = ""; // Очистить ввод
+        this.value = "";
     }
 });
 
