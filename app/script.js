@@ -360,11 +360,10 @@ input.addEventListener('keydown', async (e) => {
     }
 });
 
-window.onload = function() {
+window.onload = async function() {
     const urlParams = new URLSearchParams(window.location.search);
     
     if (urlParams.get('from') === 'void') {
-        // Создаем оверлей для лога загрузки
         const bootLog = document.createElement('div');
         bootLog.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:#000; color:#55ff55; font-family:monospace; padding:20px; z-index:9999;";
         document.body.appendChild(bootLog);
@@ -387,7 +386,6 @@ window.onload = function() {
                 lineIndex++;
             } else {
                 clearInterval(interval);
-                // Убираем лог через 2 секунды после завершения
                 setTimeout(() => {
                     bootLog.style.opacity = "0";
                     bootLog.style.transition = "opacity 1s";
@@ -396,6 +394,12 @@ window.onload = function() {
             }
         }, 400);
     }
+    await showLoader(6000);
+    input.blur();
+    await showLoader(1500);
+    const dateStr = getDateTime();
+    await typeWriter(`Welcome to main Automated Antenna Communication Service.\\nYou re logged in as "Guest"\\n${dateStr}\\nYour IP address 127.1.1.0\\nType "help" for command list.`);
+    input.focus();
 };
 
 document.addEventListener('click', () => input.focus());
