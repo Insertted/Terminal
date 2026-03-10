@@ -360,4 +360,42 @@ input.addEventListener('keydown', async (e) => {
     }
 });
 
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    if (urlParams.get('from') === 'void') {
+        // Создаем оверлей для лога загрузки
+        const bootLog = document.createElement('div');
+        bootLog.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:#000; color:#55ff55; font-family:monospace; padding:20px; z-index:9999;";
+        document.body.appendChild(bootLog);
+
+        const lines = [
+            "[CRITICAL]: Обнаружено несанкционированное подключение к сектору VOID.",
+            "[SYSTEM]: Выполнение дезинфекции кэш-памяти...",
+            "[SYSTEM]: Проверка целостности данных... [OK]",
+            "[WARNING]: Файл ключа был использован. Запись в реестре: " + new Date().toLocaleTimeString(),
+            "[SYSTEM]: Перезагрузка интерфейса AACS...",
+            " "
+        ];
+
+        let lineIndex = 0;
+        const interval = setInterval(() => {
+            if (lineIndex < lines.length) {
+                const p = document.createElement('p');
+                p.textContent = lines[lineIndex];
+                bootLog.appendChild(p);
+                lineIndex++;
+            } else {
+                clearInterval(interval);
+                // Убираем лог через 2 секунды после завершения
+                setTimeout(() => {
+                    bootLog.style.opacity = "0";
+                    bootLog.style.transition = "opacity 1s";
+                    setTimeout(() => bootLog.remove(), 1000);
+                }, 2000);
+            }
+        }, 400);
+    }
+};
+
 document.addEventListener('click', () => input.focus());

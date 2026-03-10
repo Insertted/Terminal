@@ -25,6 +25,11 @@
             <span class="icon-label">TERMINAL.EXE</span>
         </div>
 
+        <div class="icon" onclick="toggleWindow('window-snake')">
+            <div class="icon-img">⟳</div>
+            <span class="icon-label">SNAKE.SYS</span>
+        </div>
+
         <div class="icon" onclick="toggleWindow('window-gallery')">
             <div class="icon-img">👁</div>
             <span class="icon-label">EYE_WITNESS</span>
@@ -44,6 +49,16 @@
                 <p>[00:00:01] Инициализация ритуала...</p>
                 <p>[00:04:23] Metadata Deacon: Извлечение успешно.</p>
                 <p>[00:06:66] <span style="color: red;">ВНИМАНИЕ: Обнаружена утечка души в секторе 7.</span></p>
+            </div>
+        </div>
+
+        <div id="window-snake" class="window" style="width: 405px;">
+            <div class="window-header">
+                <span class="window-title">FRAGMENT_RUNNER.EXE</span>
+                <span class="close-btn" onclick="toggleWindow('window-snake')">[X]</span>
+            </div>
+            <div class="window-content" style="padding: 0; background: #000;">
+                <canvas id="snakeCanvas" width="400" height="400"></canvas>
             </div>
         </div>
 
@@ -114,6 +129,21 @@
         
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
+    <script type="module">
+    import { initSnake } from './snake.js';
+
+    window.toggleWindow = function(id) {
+        const win = document.getElementById(id);
+        if (win.style.display === 'block') {
+            win.style.display = 'none';
+        } else {
+            win.style.display = 'block';
+            if (id === 'window-snake') {
+                initSnake('snakeCanvas');
+            }
+        }
+    }
+    </script>
 </body>
 </html>

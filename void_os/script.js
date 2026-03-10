@@ -1,4 +1,3 @@
-// Функция открытия/закрытия
 function toggleWindow(id) {
     const win = document.getElementById(id);
     if (!win) return;
@@ -7,7 +6,6 @@ function toggleWindow(id) {
         win.style.display = 'none';
     } else {
         win.style.display = 'block';
-        // При открытии выносим окно на передний план
         bringToFront(win);
     }
 }
@@ -17,7 +15,6 @@ function bringToFront(win) {
     win.style.zIndex = "100";
 }
 
-// Усовершенствованная логика перетаскивания для ВСЕХ окон
 function makeDraggable() {
     document.querySelectorAll('.window').forEach(win => {
         const header = win.querySelector('.window-header');
@@ -69,21 +66,39 @@ terminalInput.addEventListener('keydown', function(e) {
                 response = "Доступные команды: help, whoami, contemptum.exe, status, cls, exit.";
                 break;
         case 'exit':
-            const output = document.getElementById('terminal-output');
-            const p = document.createElement('p');
-            p.innerHTML = "> ИНИЦИАЛИЗАЦИЯ ВЫХОДА... <span style='color: #ff00ea;'>[СВЯЗЬ РАЗОРВАНА]</span>";
-            output.appendChild(p);
+            const out = document.getElementById('terminal-output');
+            const msg = document.createElement('p');
+            msg.innerHTML = "> ИНИЦИАЛИЗАЦИЯ ВЫХОДА... <br>> <span style='color: #ff00ea;'>[ИЗВЛЕЧЕНИЕ ДАННЫХ В ФИЗИЧЕСКУЮ ПАМЯТЬ]</span>";
+            out.appendChild(msg);
 
-            setTimeout(() => {
-                document.body.style.transition = "all 0.5s ease";
-                document.body.style.filter = "brightness(0) contrast(2)";
-                document.body.style.transform = "scaleY(0.01)";
+            try {
+                const secretContent = "ОТЧЕТ ОБЪЕКТА: #666\n---------------------------\nСТАТУС: ИЗВЛЕЧЕНО\n\nСЛЕДУЮЩИЙ ШАГ ПРЕДОПРЕДЕЛЕН.";
+                const blob = new Blob([secretContent], { type: 'text/plain' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'RECOVERED_LOG.txt';
+                document.body.appendChild(a);
+                a.click();
         
                 setTimeout(() => {
-                    window.location.href = "../index.html"; 
-                }, 500);
-            }, 1000);
-            break;
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                }, 100);
+            } catch (err) {
+                console.error("Ошибка скачивания:", err);
+            }
+
+    setTimeout(() => {
+        document.body.style.transition = "all 0.5s ease";
+        document.body.style.filter = "brightness(0) contrast(2) grayscale(1)";
+        document.body.style.transform = "scaleY(0.01)";
+        
+        setTimeout(() => {
+            window.location.href = "../index.html?from=void"; 
+        }, 600);
+    }, 2000); 
+    break;
             case 'whoami':
                 response = "РАНГ: Aspicite. ТВОЙ ГРЕХ: Любопытство.";
                 break;
@@ -120,34 +135,30 @@ function checkKey(input) {
         const content = e.target.result.trim();
         const secretWindow = document.getElementById('window-secret');
         
-        // ВАЖНО: Убедись, что фраза совпадает символ в символ!
         if (content === "STATUS_DECODED_BY_FLAYER_666") {
-            console.log("Ключ верен"); // Для отладки (F12)
             
-            // Принудительно открываем и выводим наверх
             secretWindow.style.display = 'block';
             secretWindow.style.zIndex = '999'; 
             secretWindow.style.top = '150px';
             secretWindow.style.left = '150px';
             
-            // Вызываем функцию перетаскивания еще раз, чтобы новое окно "ожило"
             if (typeof makeDraggable === "function") makeDraggable();
             
         } else {
             alert("ОШИБКА: Файл поврежден или содержит неверную подпись.");
         }
     };
+
+    
     
     reader.readAsText(file);
-    // Сбрасываем инпут, чтобы можно было загрузить тот же файл еще раз
     input.value = ""; 
 }
 
 function executeExitSequence() {
     const termInput = document.getElementById('terminal-input');
-    termInput.disabled = true; // Блокируем ввод
+    termInput.disabled = true;
 
-    // 1. Эффект "схлопывания" экрана через CSS фильтры
     setTimeout(() => {
         document.body.style.transition = "all 0.8s cubic-bezier(0.11, 0, 0.5, 0)";
         document.body.style.filter = "brightness(5) contrast(3) grayscale(1)";
@@ -155,18 +166,14 @@ function executeExitSequence() {
         document.body.style.background = "#fff";
     }, 500);
 
-    // 2. Полное исчезновение
     setTimeout(() => {
         document.body.style.opacity = "0";
     }, 1200);
 
-    // 3. Возврат в реальность
     setTimeout(() => {
-        // Если используешь C# WebView, это подаст сигнал программе закрыться
         if (window.chrome && window.chrome.webview) {
             window.chrome.webview.postMessage("close_window");
         } else {
-            // Если это просто браузер — имитируем конец сессии
             document.body.innerHTML = "<div style='color:white; font-family:monospace; padding:20px;'>C:\> _</div>";
             document.body.style.filter = "none";
             document.body.style.transform = "none";
@@ -178,5 +185,4 @@ function executeExitSequence() {
 
 
 
-// Запускаем регистрацию окон после загрузки страницы
 window.onload = makeDraggable;
