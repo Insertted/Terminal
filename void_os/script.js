@@ -72,7 +72,7 @@ terminalInput.addEventListener('keydown', function(e) {
             out.appendChild(msg);
 
             try {
-                const secretContent = "ОТЧЕТ ОБЪЕКТА: #666\n---------------------------\nСТАТУС: ИЗВЛЕЧЕНО\n\nСЛЕДУЮЩИЙ ШАГ ПРЕДОПРЕДЕЛЕН.";
+                const secretContent = "ОТЧЕТ ОБЪЕКТА: #666\n---------------------------\nСТАТУС: ДЕСКРИПТОР ПУСТОТЫ ОТКЛЮЧЕН ОТ ЯДРА\n\nВНИМАНИЕ.НАЙДЕНО ПОСЛАНИЕ ОТ ДЕСКРИПТОРА\nНЕ ВНИКАЙ СЛИШКОМ СИЛЬНО В БЕЗДНУ, ОНИ СМОТРЯТ...";
                 const blob = new Blob([secretContent], { type: 'text/plain' });
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -103,7 +103,7 @@ terminalInput.addEventListener('keydown', function(e) {
                 response = "РАНГ: Aspicite. ТВОЙ ГРЕХ: Любопытство.";
                 break;
             case 'status':
-                response = "СОСТОЯНИЕ: Код чист. Вера сильна. Глаз плачет.";
+                response = "СОСТОЯНИЕ: Код верен. Дескриптор пустоты покинул нас. Регрессия не обратима.";
                 break;
             case 'contemptum.exe':
                 response = "ОШИБКА: Требуется ключ с физического носителя.(USB-накопитель)";
@@ -145,7 +145,7 @@ function checkKey(input) {
             if (typeof makeDraggable === "function") makeDraggable();
             
         } else {
-            alert("ОШИБКА: Файл поврежден или содержит неверную подпись.");
+            alert("ОШИБКА: Файл поврежден или содержит ложную печать");
         }
     };
 

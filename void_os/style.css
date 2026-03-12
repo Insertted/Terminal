@@ -6,7 +6,6 @@ body {
     margin: 0;
 }
 
-/* Эффект старого ЭЛТ-монитора */
 .scanlines {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -26,7 +25,6 @@ body {
     flex-wrap: wrap;
 }
 
-/* Стили иконки */
 .icon {
     width: 80px;
     text-align: center;
@@ -52,7 +50,6 @@ body {
     letter-spacing: 1px;
 }
 
-/* Окно системы */
 .window {
     display: none;
     position: absolute;
@@ -91,7 +88,6 @@ body {
 .close-btn { cursor: pointer; }
 .close-btn:hover { color: #ff0000; }
 
-/* Сетка для галереи */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -119,7 +115,6 @@ body {
     color: #ff00ea;
 }
 
-/* Заглушка для "битого" изображения */
 .corrupted-block {
     width: 100%;
     height: 80px;
