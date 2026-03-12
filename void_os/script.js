@@ -103,7 +103,7 @@ terminalInput.addEventListener('keydown', function(e) {
                 response = "РАНГ: Aspicite. ТВОЙ ГРЕХ: Любопытство.";
                 break;
             case 'status':
-                response = "СОСТОЯНИЕ: Код верен. Дескриптор пустоты покинул нас. Регрессия не обратима.";
+                response = "СОСТОЯНИЕ: Код верен. Дескриптор пустоты покинул нас. Регрессия необратима.";
                 break;
             case 'contemptum.exe':
                 response = "ОШИБКА: Требуется ключ с физического носителя.(USB-накопитель)";

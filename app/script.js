@@ -242,7 +242,7 @@ input.addEventListener('keydown', async (e) => {
             else if (command === 'status') {
                 await typeWriter('Diagnostic. . .');
                 await showLoader(3500);
-                let statusMsg = 'Server_connection................OK\\nAntenna_translators..............OK\\nMain_transformer.................OFF\\nNorth_Line.......................ERROR\\nWest_Line........................ERROR';
+                let statusMsg = 'Server_connection................OK\\nAntenna_translators..............OK\\nMain_transformer.................OFF\\nChecking power lines. . .\\n1/3...............................OK\\n2/3...............................OK\\n3/3............................ERROR';
                 if (isAuth) {
                     statusMsg += '\\nAgents_online....................53/152';
                 }
@@ -263,6 +263,22 @@ input.addEventListener('keydown', async (e) => {
             else if (command === 'apostol') {
                 await showLoader(2000);
                 await typeWriter('Apostol already dead\\nEthernet is dead\\nNothing making sense...')
+            } 
+            else if (command === 'feranzello') {
+                await showLoader(2000);
+                await typeWriter('User Dead.')
+            } 
+            else if (command === 'lesya') {
+                await showLoader(2000);
+                await typeWriter('Yeah, its you.')
+            }
+            else if (command === 'insert') {
+                await showLoader(2000);
+                await typeWriter('insert != Last_Rite/Admin01, i promise.')
+            } 
+            else if (command === 'palachpro') {
+                await showLoader(2000);
+                await typeWriter('Ya tvoi palach, Tbl ne plach.')
             }
             else if (command === 'ls' || command === 'files') {
                 if (!isAuth) {
