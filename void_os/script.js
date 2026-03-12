@@ -184,5 +184,5 @@ function executeExitSequence() {
 }
 
 
-
+window.checkKey = checkKey;
 window.onload = makeDraggable;

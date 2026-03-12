@@ -327,11 +327,15 @@ input.addEventListener('keydown', async (e) => {
             else if (command === 'connect_void') {
                 await typeWriter('Requesting connection to void. . .');
                 await showLoader(1000);
+                await typeWriter("Recived 2 new messages from '▓̡̋́▓̍ͥOID DE▓̡̋́CRYP▓̍TER\\nReading messages. . .")
+                await showLoader(1000)
                 await typeWriter('Hmmm. . .');
-                await showLoader(5000);
+                await showLoader(2000);
                 await typeWriter('Лады, DESPECTUS, в этот раз позволю тебе взглянуть в бездну, смотри внимательно. . .');
                 await showLoader(500);
                 history.innerHTML = '';
+                await typeWriter("The connection has been terminated for user safety reasons.")
+                await showLoader(500)
                 await typeWriter('IP: 666.6?6.???.666 BANNED.');
                 await showLoader(2000);
                 await typeWriter('Connection established.\\nEntering void. . .');
@@ -372,6 +376,7 @@ window.onload = async function() {
             "[CRITICAL]: Обнаружено несанкционированное подключение к сектору VOID.",
             "[SYSTEM]: Выполнение дезинфекции кэш-памяти...",
             "[SYSTEM]: Проверка целостности данных... [OK]",
+            "[SYSTEM]: Удалось получить файл, добавлено в загрузки.",
             "[WARNING]: Файл ключа был использован. Запись в реестре: " + new Date().toLocaleTimeString(),
             "[SYSTEM]: Перезагрузка интерфейса AACS...",
             " "
