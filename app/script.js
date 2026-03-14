@@ -244,7 +244,7 @@ input.addEventListener('keydown', async (e) => {
                 await showLoader(3500);
                 let statusMsg = 'Terminal [version 5.9.0.1]\\n\\nServer_connection................OK\\nAntenna_translators..............OK\\nSub_systems......................OK\\n\\nChecking power lines. . .\\n1/3...............................OK\\n2/3...............................OK\\n3/3............................ERROR';
                 if (isAuth) {
-                    statusMsg += '\\n\\nAgents_online....................53/152';
+                    statusMsg += '\\n\\nSERVERS LOAD: LOW [26312/165400]';
                 }
                 statusMsg += '\\nStatus: POWER OUTAGES';
                 await typeWriter(statusMsg);
