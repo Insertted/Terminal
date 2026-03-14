@@ -14,7 +14,7 @@ import { downloadFile } from "../modules/Download.js";
 import { triggerScreamer } from "../modules/screamer.js";
 import { regdata } from "../modules/files.js";
 import { getProgressBar } from "../modules/progress.js";
-import { sendNotification } from "../modules/TGbot.js";
+//import { sendNotification } from "../modules/TGbot.js";
 
 // Приветсвенное сообщение
 window.onload = async () => {
