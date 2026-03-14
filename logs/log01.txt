@@ -1,3 +1,4 @@
+
 <Log01>
 Admin01 - Hello World!
 Last_Rite - Проверил?

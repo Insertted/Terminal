@@ -80,7 +80,7 @@ input.addEventListener('keydown', async (e) => {
         if (val === '' && curStep !== 'auth_password') return;
 
         const userLine = document.createElement('div');
-        userLine.innerHTML = `<span style="color: #888;">AACS:\\> ${curStep === 'auth_password' ? '********' : raw}</span>`;
+        userLine.innerHTML = `<span style="color: #888;">AACS:\\> ${curStep === 'auth_password' ? '***' : raw}</span>`;
         history.appendChild(userLine);
         
         await showLoader(1000);
@@ -193,9 +193,9 @@ input.addEventListener('keydown', async (e) => {
             // --ОСНОВНЫЕ КОМАНДЫ--
             else if (command === 'help') {
                 if (!isAuth) {
-                    await typeWriter('Commands:\\nLOGIN\\nSTATUS\\nCLEAR');
+                    await typeWriter('Commands:\\n\\nLOGIN\\nSTATUS\\nCLEAR');
                 } else {
-                    await typeWriter('Commands:\\nLOGS\\nFILES\\nSTATUS\\nLOGOUT\\nCLEAR');
+                    await typeWriter('Commands:\\n\\nLOGS\\nFILES\\nSTATUS\\nLOGOUT\\nCLEAR');
                 }
                 return;
             } else if (command === '9js9891kdssz11s') {
@@ -223,7 +223,7 @@ input.addEventListener('keydown', async (e) => {
                     await typeWriter('ACCESS DENIED');
                 } else {
                     await showLoader(2000);
-                    await typeWriter('AVAILABLE LOGS:\\n- log01.txt\\n- log02.txt\\n- log03.txt\\n- log04.txt\\n- agents.txt\\n- big_deal.txt\\n- cultic.txt\\n- laws_ddos.txt\\n- meet.txt\\n- recruit.txt\\n- ascii_art_queen.txt\\n\\nType "log [name]" to read.');
+                    await typeWriter('AVAILABLE LOGS:\\n\\n- log01\\n- log02\\n- log03\\n- log04\\n- agents\\n- big_deal\\n- cultic\\n- laws_ddos\\n- meet\\n- recruit\\n- ascii_art_queen\\n\\nType "log [name]" to read.');
                 }
                 return;
             } if (command === 'log') {
@@ -234,7 +234,7 @@ input.addEventListener('keydown', async (e) => {
                 } else {
                     await typeWriter(`READING ${args[1]}...`);
                     await showLoader(2000);
-                    const content = await readLogFile(args[1]);
+                    const content = await readLogFile(args[1] + '.txt');
                     await typeWriter(content);
                 }
                 return;
@@ -242,9 +242,9 @@ input.addEventListener('keydown', async (e) => {
             else if (command === 'status') {
                 await typeWriter('Diagnostic. . .');
                 await showLoader(3500);
-                let statusMsg = 'Server_connection................OK\\nAntenna_translators..............OK\\nMain_transformer.................OFF\\nChecking power lines. . .\\n1/3...............................OK\\n2/3...............................OK\\n3/3............................ERROR';
+                let statusMsg = 'Terminal [version 5.9.0.1]\\n\\nServer_connection................OK\\nAntenna_translators..............OK\\nSub_systems......................OK\\n\\nChecking power lines. . .\\n1/3...............................OK\\n2/3...............................OK\\n3/3............................ERROR';
                 if (isAuth) {
-                    statusMsg += '\\nAgents_online....................53/152';
+                    statusMsg += '\\n\\nAgents_online....................53/152';
                 }
                 statusMsg += '\\nStatus: POWER OUTAGES';
                 await typeWriter(statusMsg);
@@ -284,12 +284,12 @@ input.addEventListener('keydown', async (e) => {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
                 } else {
-                    await typeWriter('Available files:\\n- BlackScreen.png\\n- rkn_f.jpg\\n- attack_rkn.mp4\\n- Chronology.txt\\n- house.jpg\\n\\nType "get [name]" to download file.');
+                    await typeWriter('Available files:\\n\\n- BlackScreen.png\\n- rkn_f.jpg\\n- attack_rkn.mp4\\n- Chronology.txt\\n- house.jpg\\n\\nType "get [name]" to download file.');
                 }
                 return;
             } 
             else if (command === 'maze.oetfkanvz0') {
-                await typeWriter('Hidden command found\\nmaze.autoexec');
+                await typeWriter('Hidden command found\\n\\nmaze.autoexec');
             } 
             else if (command === 'maze.autoexec') {
                 const overlay = document.getElementById('hacking-overlay');
