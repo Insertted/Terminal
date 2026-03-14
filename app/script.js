@@ -85,7 +85,6 @@ input.addEventListener('keydown', async (e) => {
         
         await showLoader(1000);
 
-        // Начало авторизации
         if (curStep === 'auth_login') {
             if(val.toLowerCase() === regdata.user) {
                 curStep = 'auth_password';
@@ -242,7 +241,7 @@ input.addEventListener('keydown', async (e) => {
             else if (command === 'status') {
                 await typeWriter('Diagnostic. . .');
                 await showLoader(3500);
-                let statusMsg = 'Terminal [version 5.9.0.1]\\n\\nServer_connection................OK\\nAntenna_translators..............OK\\nSub_systems......................OK\\n\\nChecking power lines. . .\\n1/3...............................OK\\n2/3...............................OK\\n3/3............................ERROR';
+                let statusMsg = '\\nTerminal [version 5.9.0.1]\\n\\nServer_connection................OK\\nAntenna_translators..............OK\\nSub_systems......................OK\\n\\nChecking power lines. . .\\n1/3...............................OK\\n2/3...............................OK\\n3/3............................ERROR';
                 if (isAuth) {
                     statusMsg += '\\n\\nSERVERS LOAD: LOW [26312/165400]';
                 }

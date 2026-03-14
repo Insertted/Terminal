@@ -1,5 +1,5 @@
 body {
-    background-color: #050505; /* Почти черный фон */
+    background-color: #050505;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,7 +12,7 @@ body {
 
 #status-line {
     margin-bottom: 10px;
-    color: #0f0; /* Зеленый текст статуса */
+    color: #0f0;
     font-size: 14px;
     text-shadow: 0 0 5px #0f0;
 }
@@ -23,7 +23,6 @@ body {
     height: 90vmin;
     background-color: #0a0a0a;
     border: 2px solid #1a1a1a;
-    /* Убираем жирные границы ячеек, чтобы не рябило */
 }
 
 .cell {
@@ -32,34 +31,29 @@ body {
     background-color: #0a0a0a;
     border: 0.1px solid #111;
     box-sizing: border-box;
-    transition: background-color 0.2s; /* Плавное затухание */
+    transition: background-color 0.2s;
 }
 
-/* Пройденный путь */
 .cell.visited {
-    background-color: #111; /* Чуть светлее тумана */
+    background-color: #111;
 }
 
-/* Стены проявляются темно-серым при ударе */
 .cell.wall-hit {
     background-color: #0300a0; 
     box-shadow: inset 0 0 10px #000;
 }
 
-/* Ловушка — ярко-красная с пульсацией */
 .cell.trap-hit { 
     background-color: #880000 !important; 
     animation: pulse 0.5s infinite;
 }
 
-/* Игрок — кислотно-зеленый */
 .cell.player {
     background-color: #00ff00 !important; 
     box-shadow: 0 0 15px #00ff00;
     z-index: 10;
 }
 
-/* Цель — желтая (золотая) */
 .cell.goal {
     background-color: #ffd700 !important; 
     box-shadow: 0 0 15px #ffd700;
@@ -84,7 +78,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Поверх всего */
+    z-index: 9999
 }
 
 .login-box {
@@ -111,5 +105,5 @@ body {
     color: #f00;
     font-size: 12px;
     margin-top: 10px;
-    display: none; /* Скрыт по умолчанию */
+    display: none;
 }
