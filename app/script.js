@@ -386,7 +386,7 @@ input.addEventListener('keydown', async (e) => {
                 } else {
                     const fileName = val.split(' ')[1];
                     await typeWriter(`Downloading ${fileName} . . .`);
-                    downloadFile(`../files/${fileName}`, fileName);
+                    downloadFile(`files/${fileName}`, fileName);
                     await showLoader(1000);
                     await typeWriter('Done.')
                 }
