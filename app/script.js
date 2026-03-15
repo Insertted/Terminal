@@ -192,9 +192,9 @@ input.addEventListener('keydown', async (e) => {
             // --ОСНОВНЫЕ КОМАНДЫ--
             else if (command === 'help') {
                 if (!isAuth) {
-                    await typeWriter('Commands:\\n\\nLOGIN\\nSTATUS\\nCLEAR');
+                    await typeWriter('Commands:\\n\\nLOGIN\\nSTATUS\\nREPORT\\nCLEAR');
                 } else {
-                    await typeWriter('Commands:\\n\\nLOGS\\nFILES\\nSTATUS\\nLOGOUT\\nCLEAR');
+                    await typeWriter('Commands:\\n\\nLOGS\\nFILES\\nSTATUS\\nREPORT\\nLOGOUT\\nCLEAR');
                 }
                 return;
             } else if (command === '9js9891kdssz11s') {
@@ -314,6 +314,17 @@ input.addEventListener('keydown', async (e) => {
                 }, 2000);
                 return;
             } 
+            else if (command === 'report') {
+                const userMessage = args.slice(1).join(' ');
+                if (!userMessage) {
+                    await typeWriter('USAGE: report [message]');
+                } else {
+                    await typeWriter('Sending report to administrator. . .');
+                    await showLoader(2000);
+                    sendNotification(`New user report: ${userMessage}`);
+                    await typeWriter('Report sent. Thank you for your feedback.');
+                }                return;
+            }
             else if (command === '4la000ngjua1kkauwqbknl4902kgfmadlfgpo') {
                 await showLoader(2000);
                 await typeWriter('TOKEN FOUND\\nAttempting to use token. . .');
