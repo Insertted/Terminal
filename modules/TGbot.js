@@ -1,5 +1,7 @@
+require('dotenv').config();
+
 export async function sendNotification(message) {
-    const token = '8655433351:AAEUrb37jTAGsdIO5x3T1IEqSb-ljERzruc'; 
+    const token = process.env.BOT_TOKEN; 
     const chatId = '1178017376';
     
     const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
