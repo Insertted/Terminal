@@ -23,7 +23,7 @@
   <summary>СКРЫТЫЕ КОМАНДЫ(СПОЙЛЕРЫ)</summary>
      Hidden - Список скрытых комманд/пасхалок.(Основной терминал)
 
-        AACS TERMINAL
+    AACS TERMINAL
         * `apostol` - Пасхалка.
         * `feranzello` - Пасхалка.
         * `lesya` - Пасхалка.
