@@ -263,7 +263,7 @@ input.addEventListener('keydown', async (e) => {
                 await showLoader(2000);
                 await typeWriter('Apostol already dead\\nEthernet is dead\\nNothing making sense...')
             } 
-            else if (command === 'code 12 h spb') {
+            else if (command === 'code') {
                 await showLoader(2000);
                 await typeWriter('CODE 12 H SPB\\n12 районов СПБ окружены силовыми структурами.\\nРекомендуется избегать этих районов и не распространять информацию о происходящем там.\\nОставайтесь в безопасности и следите за обновлениями новостей.');
             } 
