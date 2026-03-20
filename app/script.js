@@ -6,7 +6,9 @@ const typerText = document.getElementById('typer-text');
 const loaderFrames = ['/', '-', '\\', '|'];
 
 let isAuth = false;
-let curStep = 'system'; 
+let curStep = 'system';
+let currentUserData = null;
+let tempLoginId = "";
 
 import { getDateTime } from "../modules/date.js";
 import { readLogFile } from "../modules/Readlog.js";
@@ -86,48 +88,51 @@ input.addEventListener('keydown', async (e) => {
         await showLoader(1000);
 
         if (curStep === 'auth_login') {
-            if(val.toLowerCase() === regdata.user) {
-                curStep = 'auth_password';
-                await showLoader(1000);
-                await typeWriter('waiting for password. . .');
-            } else {
-                terminal.classList.add('glitch-error');
+            tempLoginId = val.toLowerCase();
+            await showLoader(1500);
 
-                await typeWriter('ACCESS DENIED');
+            try {
+                const response = await fetch('./files/db.json');
+                const db = await response.json();
 
-                setTimeout(() => {
-                    terminal.classList.remove('glitch-error');
-                }, 1000);
-                
+                if (db.users[tempLoginId]) {
+                    currentUserData = db.users[tempLoginId];
+                    curStep='auth_password';
+                    await typeWriter('Waiting for password. . .');
+                } else {
+                    await typeWriter('USER NOT FOUND');
+                    curStep = 'system';
+                }
+            } catch (err) {
+                console.error(err);
+                await typeWriter('DB_ACCESS_FAILED');
                 curStep = 'system';
             }
             return;
         }
         else if (curStep === 'auth_password') {
-            if (val === regdata.password) {
+            await showLoader(1500); // Имитация проверки ключа
+
+            if (currentUserData && val === currentUserData.pass) {
                 curStep = 'system';
-                const dateStr = getDateTime();
                 isAuth = true;
-                await showLoader(2500);
-                input.blur();
-                await typeWriter('ACCESS GRANTED\\n');
+                const dateStr = getDateTime();
+        
+                await typeWriter('ACCESS GRANTED\n');
                 await showLoader(2000);
                 history.innerHTML = '';
-                await typeWriter(`Welcome to main Auto▓͑̃▓̍ͥated Antenna Communication Se▓̡̋́▓̍ͥce.\\nYou're logged in as "Observer 012"\\n${dateStr}\\nYour IP address 127.1▓̡̋́0\\nType "help" for command list.`)
-                input.focus();
+        
+                // Используем данные из БД для приветствия
+                await typeWriter(`Welcome to main Automated Antenna Communication Service.\n${currentUserData.welcomeMsg}\n${dateStr}\nYour IP address 127.1.1.0\nType "help" for command list.`);
             } else {
                 terminal.classList.add('glitch-error');
-        
-                await typeWriter(history, terminal, 'ACCESS DENIED');
-        
-                setTimeout(() => {
-                    terminal.classList.remove('glitch-error');
-                }, 1000);
-
+                await typeWriter('ACCESS_DENIED: INVALID_KEY');
+                setTimeout(() => terminal.classList.remove('glitch-error'), 1000);
                 curStep = 'system';
-                    }
-                    return;
-                }
+                currentUserData = null;
+            }
+            return;
+        }
         else if (curStep === 'system') {
 
             const args = val.split(' ');
@@ -222,7 +227,7 @@ input.addEventListener('keydown', async (e) => {
                     await typeWriter('ACCESS DENIED');
                 } else {
                     await showLoader(2000);
-                    await typeWriter('AVAILABLE LOGS:\\n\\n- log01\\n- log02\\n- log03\\n- log04\\n- agents\\n- big_deal\\n- cultic\\n- laws_ddos\\n- meet\\n- recruit\\n- ascii_art_queen\\n\\nType "log [name]" to read.');
+                    await typeWriter('AVAILABLE LOGS:\\n\\n- log01\\n- log02\\n- log03\\n- log04\\n- agents\\n- big_deal\\n- delete_it_pls\\n- cultic\\n- laws_ddos\\n- meet\\n- recruit\\n- ascii_art_queen\\n\\nType "log [name]" to read.');
                 }
                 return;
             } if (command === 'log') {
@@ -231,10 +236,16 @@ input.addEventListener('keydown', async (e) => {
                 } else if (!args[1]) {
                     await typeWriter('USAGE: log [filename.txt]');
                 } else {
+                    const fileName = args[1] + '.txt';
+
+                    if(fileName === 'delete_it_pls.txt' && currentUserData.clearance < 5) {
+                        await typeWriter('ACCESS DENIED: INSUFFICIENT CLEARANCE');
+                        return;
+                    } else {
                     await typeWriter(`READING ${args[1]}...`);
                     await showLoader(2000);
-                    const content = await readLogFile(args[1] + '.txt');
-                    await typeWriter(content);
+                    const content = await readLogFile(args[1] + '.txt', fileName);
+                    await typeWriter(content);}
                 }
                 return;
             }

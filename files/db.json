@@ -1,0 +1,22 @@
+{
+  "users": {
+    "guest": {
+      "pass": "123",
+      "clearance": 1,
+      "welcomeMsg": "You're logged in as 'Guest'",
+      "color": "#888"
+    },
+    "observer012": {
+      "pass": "pan",
+      "clearance": 3,
+      "welcomeMsg": "You're logged in as 'Observer012'",
+      "color": "#00ffff"
+    },
+    "second": {
+      "pass": "clouds",
+      "clearance": 5,
+      "welcomeMsg": "ROOT ACCESS GRANTED. WELCOME, ADMIN.",
+      "color": "#ff0000"
+    }
+  }
+}
