@@ -236,11 +236,19 @@ input.addEventListener('keydown', async (e) => {
                 } else if (!args[1]) {
                     await typeWriter('USAGE: log [filename.txt]');
                 } else {
+                    let requiredClearance = 0;
                     const fileName = args[1] + '.txt';
 
-                    if(fileName === 'delete_it_pls.txt' && currentUserData.clearance < 5) {
-                        await typeWriter('ACCESS DENIED: INSUFFICIENT CLEARANCE');
-                        return;
+                    if (fileName === 'delete_it_pls.txt' || fileName === 'laws_ddos.txt') {
+                        requiredClearance = 3; // Нужно быть Observer или выше
+                        } else if (fileName === 'agents.txt') {
+                        requiredClearance = 5; // Только для Admin
+                    }
+
+                    if (currentUserData && currentUserData.clearance < requiredClearance) {
+                        terminal.classList.add('glitch-error');
+                        await typeWriter(`CRITICAL ERROR: INSUFFICIENT_CLEARANCE_LEVEL (${requiredClearance})`);
+            
                     } else {
                     await typeWriter(`READING ${args[1]}...`);
                     await showLoader(2000);
