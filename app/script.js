@@ -249,6 +249,7 @@ input.addEventListener('keydown', async (e) => {
                         terminal.classList.add('glitch-error');
                         await typeWriter(`CRITICAL ERROR: INSUFFICIENT_CLEARANCE_LEVEL (${requiredClearance})`);
             
+                        setTimeout(() => terminal.classList.remove('glitch-error'), 1000);
                     } else {
                     await typeWriter(`READING ${args[1]}...`);
                     await showLoader(2000);
