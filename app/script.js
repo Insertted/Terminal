@@ -434,6 +434,7 @@ async function triggerRandomConnection() {
     const eventChain = [
         { text: `[OK] Connecting to ${randomNode}. . .`, color: "#ffffff" },
         { text: "[OK] Checking ssh key. . .", color: "#ffffff" },
+        { text: "[OK] Checking ssh key. . .", color: "#ffffff" },
         { text: `[OK] Checking connection to ${randomRec}. . .`, color: "#ffffff" },
         { text: "[OK] Checking user activity. . .", color: "#ffffff" },
         { text: "[OK] Saving session data. . .", color: "#ffffff" },
