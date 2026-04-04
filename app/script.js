@@ -74,22 +74,18 @@ async function typeWriter(text, speed = 27) {
         const span = document.createElement('span');
         line.appendChild(span);
 
-        // Шанс появления битого символа (например, 5%, так как это временно)
         if (Math.random() > 0.99 && char !== ' ') {
             // Сразу ставим битый символ
             span.textContent = glitchChars[Math.floor(Math.random() * glitchChars.length)];
 
-            // Запускаем ТАЙМЕР на исправление (не ждем его через await!)
             setTimeout(() => {
                 span.textContent = char;
-                span.style.color = ""; // Возвращаем обычный цвет
-                // Добавим микро-эффект вспышки при исправлении
+                span.style.color = "";
                 span.style.textShadow = "0 0 5px #55ff55";
                 setTimeout(() => { span.style.textShadow = "none"; }, 100);
             }, 700 + Math.random() * 200); // Исправится через 1.0 - 1.5 сек
 
         } else {
-            // Обычный символ без глитча
             span.textContent = char;
         }
         
@@ -144,7 +140,7 @@ input.addEventListener('keydown', async (e) => {
             return;
         }
         else if (curStep === 'auth_password') {
-            await showLoader(1500); // Имитация проверки ключа
+            await showLoader(1500);
 
             if (currentUserData && val === currentUserData.pass) {
                 curStep = 'system';
@@ -394,7 +390,7 @@ input.addEventListener('keydown', async (e) => {
                 await showLoader(2000);
                 sendNotification('She complete the quest');
                 showLoader(8000);
-                await typeWriter('Thank you for feedbac');
+                await typeWriter('Thank you for feedba');
                 history.innerHTML = '';
                 await showLoader(4000);
                 await typeWriter('Это админ, вижу тебе удалось найти ключ.');
@@ -419,7 +415,7 @@ input.addEventListener('keydown', async (e) => {
                 await typeWriter('Hmmm. . .');
                 await showLoader(2000);
                 await typeWriter('Лады, DESPECTUS, в этот раз позволю тебе взглянуть в бездну, смотри внимательно. . .');
-                await showLoader(500);
+                await showLoader(1000);
                 history.innerHTML = '';
                 await typeWriter("The connection has been terminated for user safety reasons.")
                 await showLoader(500)
