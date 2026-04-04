@@ -47,6 +47,57 @@ html, body {
     margin: 0 auto;
 }
 
+.terminal-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #0a0a0a; /* Глубокий черный фон */
+    overflow: hidden;
+}
+
+.terminal-container::after {
+    content: "";
+    position: absolute;
+    top: -100%; left: 0;
+    width: 100%; height: 100px;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.02);
+    animation: scan-line 8s linear infinite;
+    z-index: 12;
+    pointer-events: none;
+}
+
+@keyframes scan-line {
+    0% { top: -100px; }
+    100% { top: 100%; }
+}
+
+.scanlines {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.2) 50%
+    );
+    background-size: 100% 4px; /* Расстояние между линиями */
+    z-index: 10;
+    pointer-events: none;
+}
+
+.vignette {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(
+        circle, 
+        rgba(0,0,0,0) 60%, 
+        rgba(0,0,0,0.8) 150%
+    );
+    z-index: 11;
+    pointer-events: none;
+}
+
 #history {
     display: flex;
     flex-direction: column;
@@ -145,7 +196,7 @@ html, body {
     right: 20px;
     text-align: right;
     font-family: 'VCR';
-    font-size: 15px;
+    font-size: 12px;
     color: #ffffff;
     pointer-events: none;
     z-index: 100;

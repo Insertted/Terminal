@@ -17,6 +17,8 @@ import { triggerScreamer } from "../modules/screamer.js";
 import { regdata } from "../modules/files.js";
 import { getProgressBar } from "../modules/progress.js";
 import { sendNotification } from "../modules/TGbot.js";
+import { spawnWatcher } from "../modules/Watcher.js";
+import { triggerRandomConnection, startRandomEvents } from "../modules/newConnection.js";
 
 // Приветсвенное сообщение
 window.onload = async () => {
@@ -53,23 +55,54 @@ async function showLoader(duration = 1500) {
     loaderLine.remove();
 }
 
-// Писаетль ответов для юзера
+const glitchChars = "█▓▒░#$/\\@¡¢£¤¥¦§¨©ª«¬®¯";
+
 async function typeWriter(text, speed = 27) {
     const line = document.createElement('div');
     line.className = 'line';
     history.appendChild(line);
 
     for (let i = 0; i < text.length; i++) {
+        let char = text.charAt(i);
+        
         if (text.substring(i, i + 2) === '\\n') {
-            line.innerHTML += '<br>';
+            line.appendChild(document.createElement('br'));
             i++;
-        } else {
-            line.innerHTML += text.charAt(i);
+            continue;
         }
+
+        const span = document.createElement('span');
+        line.appendChild(span);
+
+        // Шанс появления битого символа (например, 5%, так как это временно)
+        if (Math.random() > 0.99 && char !== ' ') {
+            // Сразу ставим битый символ
+            span.textContent = glitchChars[Math.floor(Math.random() * glitchChars.length)];
+
+            // Запускаем ТАЙМЕР на исправление (не ждем его через await!)
+            setTimeout(() => {
+                span.textContent = char;
+                span.style.color = ""; // Возвращаем обычный цвет
+                // Добавим микро-эффект вспышки при исправлении
+                span.style.textShadow = "0 0 5px #55ff55";
+                setTimeout(() => { span.style.textShadow = "none"; }, 100);
+            }, 700 + Math.random() * 200); // Исправится через 1.0 - 1.5 сек
+
+        } else {
+            // Обычный символ без глитча
+            span.textContent = char;
+        }
+        
+        if (typeof playKeyPress === 'function' && char !== ' ') playKeyPress();
+
         terminal.scrollTop = terminal.scrollHeight;
         await new Promise(res => setTimeout(res, speed));
     }
 }
+
+const watchPhrases = ["CAPTURING_BUFFER...", "SCANNING_RETINA...", "PULSE: NORMAL", "PACKET_SPOOF_DETECTED", "USER_012_STALE"];
+
+setInterval(spawnWatcher, 1500);
 
 input.addEventListener('keydown', async (e) => {
     if (e.key === 'Enter') {
@@ -417,54 +450,6 @@ input.addEventListener('keydown', async (e) => {
         }
     }
 });
-
-const connectionNodes = ["74.255.356.1", "82.156.325.123", "801.155.200.1", "356.255.255.255", "123.456.789.0", "98.765.432.1"];
-const secondNodes = ["98.55.123.2", "901.255.132.4", "251.255.255.255", "901.255.132.4", "72.156.325.123", "82.23.980.1"];
-
-async function triggerRandomConnection() {
-    const logContainer = document.getElementById('connection-log');
-    if (!logContainer) return;
-
-    logContainer.innerHTML = '';
-    logContainer.classList.add('visible');
-
-    const randomNode = connectionNodes[Math.floor(Math.random() * connectionNodes.length)];
-    const randomRec = secondNodes[Math.floor(Math.random() * secondNodes.length)];
-
-    const eventChain = [
-        { text: `[OK] Connecting to ${randomNode}. . .`, color: "#ffffff" },
-        { text: "[OK] Checking ssh key. . .", color: "#ffffff" },
-        { text: "[OK] Checking ssh key. . .", color: "#ffffff" },
-        { text: `[OK] Checking connection to ${randomRec}. . .`, color: "#ffffff" },
-        { text: "[OK] Checking user activity. . .", color: "#ffffff" },
-        { text: "[OK] Saving session data. . .", color: "#ffffff" },
-        { text: "[OK] Protecting new session. . .", color: "#ffffff" },
-        { text: "[OK] Redirecting current session to new. . .", color: "#ffffff" },
-        { text: "[OK] Connection established.", color: "#55ff55" }
-    ];
-
-    for (const step of eventChain) {
-        const line = document.createElement('div');
-        line.className = 'log-line';
-        line.style.color = step.color;
-        line.textContent = step.text;
-        logContainer.appendChild(line);
-        
-        await new Promise(res => setTimeout(res, 500 + Math.random() * 1000));
-    }
-
-    setTimeout(() => {
-        logContainer.classList.remove('visible');
-    }, 3000);
-}
-
-function startRandomEvents() {
-    const nextEvent = Math.random() * (60000 - 30000) + 30000;
-    setTimeout(() => {
-        triggerRandomConnection();
-        startRandomEvents();
-    }, nextEvent);
-}
 
 startRandomEvents();
 
