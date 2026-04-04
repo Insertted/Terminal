@@ -1,7 +1,7 @@
 const watchPhrases = ["TRACING_DATA...", "WE ARE WATCHING...", "BEHIND YOU", "CAPTURING_USER_DATA...", "REGISTERING_KEYSTROKES...", "WRITING_LOGS..."];
 
 export async function spawnWatcher() {
-    if (Math.random() > 0.98) {
+    if (Math.random() > 0.99) {
         const ghost = document.createElement('div');
         ghost.textContent = `[!] ${watchPhrases[Math.floor(Math.random() * watchPhrases.length)]}`;
         

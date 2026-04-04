@@ -98,7 +98,7 @@ async function typeWriter(text, speed = 27) {
 
 const watchPhrases = ["CAPTURING_BUFFER...", "SCANNING_RETINA...", "PULSE: NORMAL", "PACKET_SPOOF_DETECTED", "USER_012_STALE"];
 
-setInterval(spawnWatcher, 1500);
+setInterval(spawnWatcher, 15000);
 
 input.addEventListener('keydown', async (e) => {
     if (e.key === 'Enter') {
