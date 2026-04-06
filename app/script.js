@@ -152,7 +152,7 @@ input.addEventListener('keydown', async (e) => {
                 history.innerHTML = '';
         
                 // Используем данные из БД для приветствия
-                await typeWriter(`Welcome to main Automated Antenna Communication Service.\n${currentUserData.welcomeMsg}\n${dateStr}\nYour IP address 127.1.1.0\nType "help" for command list.`);
+                await typeWriter(`Wel▓me to main Aű́▓͑omated Antenna Cő́▓͑nication Servi̋́e.\n${currentUserData.welcomeMsg}\n${dateStr}\nYour IP address 127.1.1.0\nType "help" for command list.`);
             } else {
                 terminal.classList.add('glitch-error');
                 await typeWriter('ACCESS_DENIED: INVALID_KEY');
