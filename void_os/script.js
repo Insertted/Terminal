@@ -50,6 +50,18 @@ function makeDraggable() {
 
 const terminalInput = document.getElementById('terminal-input');
 const terminalOutput = document.getElementById('terminal-output');
+const asciiCross = `
+         _
+        | |
+        | |
+   _____| |_____
+  |_____________|
+        | |
+        | |
+        | |
+        | |
+        |_|
+`;
 
 terminalInput.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
@@ -63,7 +75,7 @@ terminalInput.addEventListener('keydown', function(e) {
         let response = "";
         switch(command) {
             case 'help':
-                response = "Доступные команды: help, whoami, contemptum.exe, status, cls, exit.";
+                response = "Доступные команды: help, neofetch, whoami, contemptum.exe, status, cls, exit.";
                 break;
         case 'exit':
             const out = document.getElementById('terminal-output');
@@ -112,6 +124,46 @@ terminalInput.addEventListener('keydown', function(e) {
                 terminalOutput.innerHTML = "";
                 this.value = "";
                 return;
+            case 'neofetch':
+                const fetchWrapper = document.createElement('div');
+                fetchWrapper.style.display = 'flex';
+                fetchWrapper.style.gap = '25px';
+                fetchWrapper.style.marginTop = '15px';
+                fetchWrapper.style.color = '#ff5555'; // Цвет креста
+
+                const logoPart = document.createElement('pre');
+                logoPart.style.margin = '0';
+                logoPart.textContent = asciiCross;
+                fetchWrapper.appendChild(logoPart);
+
+                const infoPart = document.createElement('div');
+                infoPart.style.color = '#eee'; // Цвет текста
+                infoPart.style.paddingTop = '10px';
+    
+                const stats = [
+                    "USER@VOID_OS",
+                    "-----------",
+                    "OS: VOID_OS x86_64",
+                    "KERNEL: 6.6.6-void",
+                    "UPTIME: 13h 37m",
+                    "SHELL: vsh 2.0",
+                    "STATUS: [WATCHING_YOU]",
+                    "MEMORY: 512MiB / 8192MiB"
+                ];
+
+                stats.forEach((text, i) => {
+                    const statLine = document.createElement('div');
+                    if (i === 0) statLine.style.color = '#55ff55';
+                    statLine.textContent = text;
+                    infoPart.appendChild(statLine);
+                });
+
+                fetchWrapper.appendChild(infoPart);
+    
+                terminalOutput.appendChild(fetchWrapper);
+    
+                response = ""; 
+                break;
             default:
                 response = "КОМАНДА '" + command + "' НЕ НАЙДЕНА. ТЬМА ПОГЛОТИЛА ВВОД.";
         }
