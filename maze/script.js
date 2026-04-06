@@ -136,7 +136,8 @@ function move(dx, dy) {
             document.getElementById(`c-${nx}-${ny}`).classList.add('trap-hit');
             setTimeout(() => {
                 alert("FIREWALL BREACHED! Returning to start...");
-                hardReset();
+                playerPos = { x: 0, y: 0 }; 
+                updatePlayerUI(); 
             }, 100);
             return;
         }
@@ -158,9 +159,10 @@ function move(dx, dy) {
 function hardReset() {
     playerPos = { x: 0, y: 0 };
     document.querySelectorAll('.cell').forEach(cell => {
-        cell.classList.remove('visited', 'wall-hit', 'trap-hit', 'player');
+        cell.classList.remove('player');
     });
-    document.getElementById(`c-0-0`).classList.add('player');
+    const startCell = document.getElementById(`c-0-0`);
+    if (startCell) startCell.classList.add('player');
 }
 
 function updatePlayerUI() {
