@@ -31,6 +31,7 @@ html, body {
     padding: 40px;
     box-sizing: border-box;
     z-index: 10;
+    background: transparent !important;
 
     color: whitesmoke;
     font-size: 24px;
@@ -211,4 +212,59 @@ html, body {
 
 .log-line {
     text-shadow: 0 0 5px rgba(85, 255, 85, 0.5);
+}
+
+#antenna-viewport {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+    background: transparent;
+    filter: drop-shadow(0 0 5px #55ff55);
+    mix-blend-mode: screen;
+}
+
+#netmap-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.netmap-window {
+    width: 80%;
+    height: 80%;
+    border: 1px solid #3f3f3f;
+    background: black;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.netmap-header {
+    background: #3f3f3f;
+    color: black;
+    padding: 5px 15px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#antenna-viewport {
+    width: 100%;
+    height: calc(100% - 30px);
+}
+
+.hidden {
+    display: none !important;
 }

@@ -38,6 +38,16 @@
         <source src="video/ryka_Rkoen.mp4" type="video/mp4">
     </video>
     </div>
+    <!-- Контейнер для 3D карты внутри "окна" -->
+    <div id="netmap-overlay" class="hidden">
+        <div class="netmap-window">
+            <div class="netmap-header">
+                <span class="netmap-title">AACS_GEO_SCANNER v1.0</span>
+                <span class="netmap-hint">PRESS [TAB] TO EXIT</span>
+            </div>
+            <div id="antenna-viewport"></div> <!-- Перемещаем вьюпорт сюда -->
+        </div>
+    </div>
     
     <div class="terminal-screen">
     <div class="scanlines"></div>
@@ -64,6 +74,8 @@
     <script type="module" src="./modules/files.js"></script>
     <script type="module" src="./modules/progress.js"></script>
     <script type="module" src="./modules/TGbot.js"></script>
+    <script type="module" src="./modules/three-bg.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <audio id="player-audio" src=""></audio>
 </body>
 </html>

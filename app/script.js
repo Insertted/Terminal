@@ -19,6 +19,7 @@ import { getProgressBar } from "../modules/progress.js";
 import { sendNotification } from "../modules/TGbot.js";
 import { spawnWatcher } from "../modules/Watcher.js";
 import { triggerRandomConnection, startRandomEvents } from "../modules/newConnection.js";
+import { initNetmap } from "../modules/three-bg.js";
 
 // Приветсвенное сообщение
 window.onload = async () => {
@@ -28,6 +29,23 @@ window.onload = async () => {
     await typeWriter(`Welcome to main Automated Antenna Communication Service.\\nYou re logged in as "Guest"\\n${dateStr}\\nYour IP address 127.1.1.0\\nType "help" for command list.`);
     input.focus();
 }
+
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab' && window.isNetmapOpen) {
+        e.preventDefault();
+        
+        const overlay = document.getElementById('netmap-overlay');
+        overlay.classList.add('hidden');
+        
+        const container = document.getElementById('antenna-viewport');
+        container.innerHTML = ''; 
+        
+        window.isNetmapOpen = false;
+        
+        // Выводим сообщение в основной терминал
+        typeWriter("\nСвязь с GEO_SCANNER разорвана.");
+    }
+});
 
 //Скрытие пароля звездочками
 input.addEventListener('input', () => {
@@ -226,9 +244,9 @@ input.addEventListener('keydown', async (e) => {
             // --ОСНОВНЫЕ КОМАНДЫ--
             else if (command === 'help') {
                 if (!isAuth) {
-                    await typeWriter('Commands:\\n\\nLOGIN\\nSTATUS\\nREPORT\\nCLEAR');
+                    await typeWriter('Commands:\\n\\nLOGIN\\nSTATUS\\nNETMAP\\nREPORT\\nCLEAR');
                 } else {
-                    await typeWriter('Commands:\\n\\nLOGS\\nFILES\\nSTATUS\\nREPORT\\nLOGOUT\\nCLEAR');
+                    await typeWriter('Commands:\\n\\nLOGS\\nFILES\\nSTATUS\\nNETMAP\\nREPORT\\nLOGOUT\\nCLEAR');
                 }
                 return;
             } else if (command === '9js9891kdssz11s') {
@@ -297,7 +315,17 @@ input.addEventListener('keydown', async (e) => {
                 statusMsg += '\\nStatus: POWER OUTAGES';
                 await typeWriter(statusMsg);
                 return;
-            } else if (command === 'clear') {
+            } else if (command === 'netmap') {
+                await typeWriter('Connecting to GEO_SCANNER. . .');
+                await showLoader(2000);
+                const overlay = document.getElementById('netmap-overlay');
+                overlay.classList.remove('hidden');
+
+                initNetmap();
+
+                window.isNetmapOpen = true;
+            }
+            else if (command === 'clear') {
                 history.innerHTML = '';
                 window.onload();
             } else if (command === 'logout') {
