@@ -41,9 +41,6 @@ window.addEventListener('keydown', (e) => {
         container.innerHTML = ''; 
         
         window.isNetmapOpen = false;
-        
-        // Выводим сообщение в основной терминал
-        typeWriter("\nСвязь с GEO_SCANNER разорвана.");
     }
 });
 
@@ -317,6 +314,7 @@ input.addEventListener('keydown', async (e) => {
                 return;
             } else if (command === 'netmap') {
                 await typeWriter('Connecting to GEO_SCANNER. . .');
+                await typeWriter('GEO_SCANNER [version 2.0.1]\\n1 critical failure detected on: NOVOSIBIRSK');
                 await showLoader(2000);
                 const overlay = document.getElementById('netmap-overlay');
                 overlay.classList.remove('hidden');

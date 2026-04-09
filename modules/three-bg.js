@@ -43,11 +43,11 @@ export function initNetmap() {
     mapGroup.add(cloud);
 
     const locations = [
-        { name: "MSK", pos: [-20, 2, 1] },
-        { name: "SPB", pos: [-22, 5, 0] },
-        { name: "NSK", pos: [0, -1, 2] },
-        { name: "VVO", pos: [22, -3, 1] },
-        { name: "EKB", pos: [-8, 1, 0] }
+        { name: "MSK", pos: [-20, 2, 1], color: 0x55ff55 },
+        { name: "SPB", pos: [-22, 5, 0], color: 0x55ff55 },
+        { name: "NSK", pos: [0, -1, 2], color: 0xff0000 },
+        { name: "VVO", pos: [22, -3, 1], color: 0x55ff55 },
+        { name: "EKB", pos: [-8, 1, 0], color: 0x55ff55 }
     ];
 
     const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0x55ff55, wireframe: true });
@@ -61,10 +61,16 @@ export function initNetmap() {
     const nodeObjects = [];
 
     locations.forEach(loc => {
-        const node = new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 1), nodeMaterial);
-        node.position.set(loc.pos[0], loc.pos[1], loc.pos[2]);
-        mapGroup.add(node);
-        nodeObjects.push(node);
+    const node = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(1.2, 1),
+        new THREE.MeshBasicMaterial({ 
+            color: loc.color,
+            wireframe: true 
+        })
+    );
+    node.position.set(loc.pos[0], loc.pos[1], loc.pos[2]);
+    mapGroup.add(node);
+    nodeObjects.push(node);
     });
 
     for (let i = 0; i < nodeObjects.length - 1; i++) {
