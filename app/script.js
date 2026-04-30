@@ -252,14 +252,14 @@ input.addEventListener('keydown', async (e) => {
                 if (!isAuth) {
                     await triggerScreamer();
                     await showLoader(3000);
-                    await typeWriter('observer012');
+                    await typeWriter('test123');
                     await showLoader(2000);
                     await typeWriter("password: ▓̡̋́▓̍ͥ");
                     await showLoader(500);
                     await typeWriter('CRITICAL ERROR:CODE 0x42221045\\nUnable to load password.');
                     await showLoader(3000);
                     await typeWriter("console.log(pass);");
-                    console.log('AACS:\> password: pan');
+                    console.log('AACS:\> password: test123');
                 }
                 else {
                     await showLoader(100);
@@ -271,7 +271,7 @@ input.addEventListener('keydown', async (e) => {
                     await typeWriter('ACCESS DENIED');
                 } else {
                     await showLoader(2000);
-                    await typeWriter('AVAILABLE LOGS:\\n\\n- log01\\n- log02\\n- log03\\n- log04\\n- agents\\n- big_deal\\n- delete_it_pls\\n- cultic\\n- laws_ddos\\n- meet\\n- recruit\\n- ascii_art_queen\\n\\nType "log [name]" to read.');
+                    await typeWriter('AVAILABLE LOGS:\\n\\n- log01\\n- log02\\n- log03\\n- log04\\n- agents\\n- big_deal\\n- delete_this\\n- cultic\\n- laws_ddos\\n- meet\\n- recruit\\n- ascii_art_queen\\n\\nType "log [name]" to read.');
                 }
                 return;
             } if (command === 'log') {
@@ -282,8 +282,25 @@ input.addEventListener('keydown', async (e) => {
                 } else {
                     let requiredClearance = 0;
                     const fileName = args[1] + '.txt';
+                    if (fileName === 'delete_this.txt') {
+                        await showLoader(1000);
+                        await typeWriter('ERROR: FILE DELETED\\nRecovery file? [Y/N]');
+                        const recoveryListener = async (e) => {
+                            if (e.key.toLowerCase() === 'y') {
+                                await typeWriter('Attempting recovery. . .');
+                                await showLoader(2000);
+                                const content = await readLogFile('delete_this.txt');
+                                await typeWriter(content);
+                            } else {
+                                await showLoader(10);
+                            }
+                            window.removeEventListener('keydown', recoveryListener);
+                        };
+                        window.addEventListener('keydown', recoveryListener);
+                        return;
+                    }
 
-                    if (fileName === 'delete_it_pls.txt' || fileName === 'laws_ddos.txt') {
+                    if (fileName === 'delete_this.txt' || fileName === 'laws_ddos.txt') {
                         requiredClearance = 3; // Нужно быть Observer или выше
                         } else if (fileName === 'agents.txt') {
                         requiredClearance = 5; // Только для Admin
@@ -366,7 +383,7 @@ input.addEventListener('keydown', async (e) => {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
                 } else {
-                    await typeWriter('Available files:\\n\\n- BlackScreen.png\\n- rkn_f.jpg\\n- attack_rkn.mp4\\n- Chronology.txt\\n- house.jpg\\n\\nType "get [name]" to download file.');
+                    await typeWriter('Available files:\\n\\n- sometext.jpg\\n- rkn_f.jpg\\n- attack_rkn.mp4\\n- Chronology.txt\\n- leaved.jpg\\n\\nType "get [name]" to download file.');
                 }
                 return;
             } 

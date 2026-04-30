@@ -1,7 +1,7 @@
 {
   "users": {
-    "guest": {
-      "pass": "123",
+    "test123": {
+      "pass": "test123",
       "clearance": 1,
       "welcomeMsg": "You're logged in as 'Guest'",
       "color": "#888"

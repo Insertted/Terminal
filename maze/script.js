@@ -148,9 +148,9 @@ function move(dx, dy) {
         
         if (playerPos.x === goalPos.x && playerPos.y === goalPos.y) {
             alert("File extracted successfully.Apostol will be happy.");
-            downloadFile("./R_database_log.txt");
+            downloadFile("./R_database_log.rar");
             window.location.href = '../index.html';
-            sendNotification("Пользователь успешно прошел лабиринт и получил файл R_database_log.txt");
+            sendNotification("Пользователь успешно прошел лабиринт и получил файл R_database_log.rar");
         }
     }
     updatePlayerUI();
