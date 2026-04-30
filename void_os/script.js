@@ -84,7 +84,7 @@ terminalInput.addEventListener('keydown', function(e) {
             out.appendChild(msg);
 
             try {
-                const secretContent = "ОТЧЕТ ОБЪЕКТА: #666\n---------------------------\nСТАТУС: ДЕСКРИПТОР ПУСТОТЫ ОТКЛЮЧЕН ОТ ЯДРА\n\nВНИМАНИЕ.НАЙДЕНО ПОСЛАНИЕ ОТ ДЕСКРИПТОРА\nНЕ ВНИКАЙ СЛИШКОМ СИЛЬНО В БЕЗДНУ, ОНИ СМОТРЯТ...";
+                const secretContent = "ОТЧЕТ ОБЪЕКТА: #666\n---------------------------\nСТАТУС: ДЕСКРИПТОР ПУСТОТЫ ОТКЛЮЧЕН ОТ ЯДРА\n\nВНИМАНИЕ.НАЙДЕНО ПОСЛАНИЕ ОТ ДЕСКРИПТОРА\nНЕ ВНИКАЙ СЛИШКОМ СИЛЬНО В БЕЗДНУ, ОНИ СМОТРЯТ... fjasuS473ASSDfj21kgi==21fka";
                 const blob = new Blob([secretContent], { type: 'text/plain' });
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');

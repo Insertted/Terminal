@@ -383,12 +383,14 @@ input.addEventListener('keydown', async (e) => {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
                 } else {
-                    await typeWriter('Available files:\\n\\n- sometext.jpg\\n- rkn_f.jpg\\n- attack_rkn.mp4\\n- Chronology.txt\\n- leaved.jpg\\n\\nType "get [name]" to download file.');
+                    await typeWriter('Available files:\\n\\n- sometext.jpg\\n- rkn_f.jpg\\n- attack_rkn.mp4\\n- 90424.jpg\\n- Chronology.txt\\n- leaved.jpg\\n\\nType "get [name]" to download file.');
                 }
                 return;
             } 
             else if (command === 'maze.oetfkanvz0') {
-                await typeWriter('Hidden command found\\n\\nmaze.autoexec');
+                await typeWriter('Maze module founded\\nStarting downloading. . .');
+                await showLoader(5000);
+                await typeWriter('Maze protocal installed\\nType "maze.autoexec"')
             } 
             else if (command === 'maze.autoexec') {
                 const overlay = document.getElementById('hacking-overlay');
