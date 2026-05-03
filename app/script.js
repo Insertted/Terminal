@@ -111,7 +111,7 @@ async function typeWriter(text, speed = 27) {
     }
 }
 
-const watchPhrases = ["CAPTURING_BUFFER...", "SCANNING_RETINA...", "PULSE: NORMAL", "PACKET_SPOOF_DETECTED", "USER_012_STALE"];
+const watchPhrases = ["CAPTURING_BUFFER...", "SCANNING_RETINA...", "PULSE: NORMAL", "PACKET_SPOOF_DETECTED", "USER_STABLE"];
 
 setInterval(spawnWatcher, 20000);
 
@@ -286,13 +286,18 @@ input.addEventListener('keydown', async (e) => {
                         await showLoader(1000);
                         await typeWriter('ERROR: FILE DELETED\\nRecovery file? [Y/N]');
                         const recoveryListener = async (e) => {
+                            e.preventDefault();
                             if (e.key.toLowerCase() === 'y') {
+                                window.removeEventListener('keydown', recoveryListener);
+                                await showLoader(100);
+                                await typeWriter('Y');
                                 await typeWriter('Attempting recovery. . .');
                                 await showLoader(2000);
                                 const content = await readLogFile('delete_this.txt');
                                 await typeWriter(content);
                             } else {
-                                await showLoader(10);
+                                await showLoader(100);
+                                await typeWriter('N');
                             }
                             window.removeEventListener('keydown', recoveryListener);
                         };
@@ -320,7 +325,7 @@ input.addEventListener('keydown', async (e) => {
                 return;
             }
             else if (command === 'status') {
-                await typeWriter('Diagnostic. . .');
+                await typeWriter('Runing system diagnostics. . .');
                 await showLoader(3500);
                 let statusMsg = '\\nTerminal [version 5.9.0.1]\\n\\nServer_connection................OK\\nAntenna_translators..............OK\\nSub_systems......................OK\\n\\nChecking power lines. . .\\n1/3...............................OK\\n2/3...............................OK\\n3/3............................ERROR';
                 if (isAuth) {
@@ -328,6 +333,23 @@ input.addEventListener('keydown', async (e) => {
                 }
                 statusMsg += '\\nStatus: POWER OUTAGES';
                 await typeWriter(statusMsg);
+                await typeWriter('Run FT diagnostic?\\n[Y/N]')
+                const ft_status = async(e) => {
+                    e.preventDefault();
+                if (e.key.toLowerCase() === 'y') {
+                    window.removeEventListener('keydown', ft_status);
+                    await showLoader(100);
+                    await typeWriter('Y');
+                    await showLoader(1000);
+                    await typeWriter('FT diagnostic [version 5.9.0.1a]\\n\\nServer_MSC...........OK\\nServer_PTB............OK\\nServerNSK..............ERROR\\nServer_CLB...........OK\\nServer_KMC..............OK\\nSecurity_system....................OK\\nC.U.L.T...........▓̍ͥ▓̍ͥ\\nTerminal_syb_systems.............OK\\n7x476290105..............OK\\nNode_12_2.............OK\\nAgents_connection................OK\\n\\nCPU LOAD: #############-- | 92%\\nGPU LOAD: ########------- | 47%\\nRAM LOAD: ###########---- | 76%\\n\\nTOTAL SERVER LOAD: [331253/7505400]')
+                }
+                else {await showLoader(100)
+                    await typeWriter('N')
+                    await showLoader(1000);
+                }
+                window.removeEventListener('keydown', ft_status);
+                };
+                window.addEventListener('keydown', ft_status);
                 return;
             } else if (command === 'netmap') {
                 await typeWriter('Connecting to GEO_SCANNER. . .');
@@ -339,6 +361,11 @@ input.addEventListener('keydown', async (e) => {
                 initNetmap();
 
                 window.isNetmapOpen = true;
+            }
+            else if (command === 'oversight') {
+                await showLoader(2000);
+                await typeWriter('User data saved in console. (f12)');
+                console.log('AACS:\> USER: ADMIN; CLEARANCE: 5; LOGIN: second; PASSWORD: clouds');
             }
             else if (command === 'clear') {
                 history.innerHTML = '';
