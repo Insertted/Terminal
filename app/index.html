@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Void_OS</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="./images/krest_ikonka.png" type="image/png">
+    <link rel="stylesheet" href="./void_os/style.css">
+    <link rel="icon" href="./void_os/images/krest_ikonka.png" type="image/png">
 </head>
 <body>
     <div class="crt-overlay"></div>
@@ -70,7 +70,7 @@
             </div>
             <div class="window-content gallery-grid">
                 <div class="img-slot" onclick="alert('Файл поврежден. Требуется расшифровка...')">
-                    <img src="./images/wow.jpg" alt="IMG_001">
+                    <img src="./void_os/images/wow.jpg" alt="IMG_001">
                     <span>evidence_01.jpg</span>
                 </div>
                 <div class="img-slot">
@@ -128,9 +128,9 @@
         
     </div>
 
-    <script type="module" src="script.js"></script>
+    <script type="module" src="./void_os/script.js"></script>
     <script type="module">
-    import { initSnake } from './snake.js';
+    import { initSnake } from './void_os/snake.js';
 
     window.toggleWindow = function(id) {
         const win = document.getElementById(id);

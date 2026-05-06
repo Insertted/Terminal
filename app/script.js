@@ -495,7 +495,7 @@ input.addEventListener('keydown', async (e) => {
                 await showLoader(2000);
                 await typeWriter('Connection established.\\nEntering void. . .');
                 await showLoader(5000);
-                window.location.href = './void_os/index.html';
+                window.location.href = './app';
                 return;
             } else if (command === 'zipkey') {
                 await typeWriter('MISSING CRITICAL ARGUMENT: KEY NOT FOUND\\nCHECK DEVTOOLS [F12]');
