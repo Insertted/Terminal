@@ -406,6 +406,10 @@ input.addEventListener('keydown', async (e) => {
                 await showLoader(2000);
                 await typeWriter('Ya tvoi palach, Tbl ne plach.')
             }
+            else if (command === 'hint') {
+                await showLoader(2000);
+                await typeWriter('Hint is empty...\\nTry to press "CTRL+F5", and type "hint" again.');
+            }
             else if (command === 'ls' || command === 'files') {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
@@ -415,9 +419,22 @@ input.addEventListener('keydown', async (e) => {
                 return;
             } 
             else if (command === 'maze.oetfkanvz0') {
-                await typeWriter('Maze module founded\\nStarting downloading. . .');
-                await showLoader(5000);
-                await typeWriter('Maze protocal installed\\nType "maze.autoexec"')
+                await typeWriter('Maze module founded\\nDownload module? [Y/N]');
+                const downloadListener = async (e) => {
+                    e.preventDefault();
+                    if (e.key.toLowerCase() === 'y') {
+                        window.removeEventListener('keydown', downloadListener);
+                        await showLoader(500);
+                        await typeWriter('Y');
+                        await showLoader(4000);
+                        await typeWriter('maze protocal downloaded successfully.\\nType "maze.autoexec" to run maze protocal.');
+                    } else {
+                        window.removeEventListener('keydown', downloadListener);
+                        await showLoader(500);
+                        await typeWriter('N');
+                    }
+                };
+                window.addEventListener('keydown', downloadListener);
             } 
             else if (command === 'maze.autoexec') {
                 const overlay = document.getElementById('hacking-overlay');
@@ -443,7 +460,7 @@ input.addEventListener('keydown', async (e) => {
                 }, 2000);
                 return;
             } 
-            else if (command === 'report') {
+            else if (command === '/report') {
                 const userMessage = args.slice(1).join(' ');
                 if (!userMessage) {
                     await typeWriter('USAGE: report [message]');
@@ -458,7 +475,38 @@ input.addEventListener('keydown', async (e) => {
                 await showLoader(2000);
                 await typeWriter('TOKEN FOUND\\nAttempting to use token. . .');
                 await showLoader(2000);
-                await typeWriter('Token is valid.\\nSenting message to administrator. . .');
+                await typeWriter('Failure.\\nAttempting_2 to use token. . .');
+                await showLoader(2000);
+                await typeWriter('Failure.\\nDecode token? [Y/N]');
+                const decodeListener = async (e) => {
+                    e.preventDefault();
+                    if (e.key.toLowerCase() === 'y') {
+                        window.removeEventListener('keydown', decodeListener);
+                        await showLoader(500);
+                        await typeWriter('Y');
+                        await showLoader(2000);
+                        await typeWriter('10%');
+                        await showLoader(100);
+                        await typeWriter('35%');
+                        await showLoader(100);
+                        await typeWriter('70%');
+                        await showLoader(4000);
+                        await typeWriter('83%');
+                        await showLoader(1500);
+                        await typeWriter('97%');
+                        await showLoader(1000);
+                        await typeWriter('100%\\nToken decoded successfully.');
+                    } else {                        window.removeEventListener('keydown', decodeListener);
+                        await showLoader(500);
+                        await typeWriter('N');
+                    }
+                };
+                window.addEventListener('keydown', decodeListener);
+                await typeWriter('Token is valid.\\nLeaving backdoor in tunnel. . .');
+                await showLoader(2000);
+                await typeWriter('sync...\\nDone.\\nEstablishing connection to backdoor. . .');
+                await showLoader(2000);
+                await typeWriter('Connection established.\\nSending message to administrator. . .');
                 await showLoader(2000);
                 sendNotification('She complete the quest');
                 showLoader(8000);
@@ -467,11 +515,11 @@ input.addEventListener('keydown', async (e) => {
                 await showLoader(4000);
                 await typeWriter('Это админ, вижу тебе удалось найти ключ.');
                 await showLoader(4000);
-                await typeWriter("Теперь нам будет куда проще, думаю раз ты проделала такую работу,тебе можно рассказать это.");
+                await typeWriter("Ты бы знала сколько мы искали эти ключи, это просто невероятно.\\nСлушай, я не могу долго болтать, так что скажу самое важное.\\n");
                 await showLoader(4000);
-                await typeWriter("Zepta, подпольная фирма, изначально AACS был чисто 'свойским' внутренним терминалом.\\nОднако РКН начали блокировать весь рунет, тогда Zepta не могла остаться в стороне.\\nТерминал был переписан под секретный канал связи для всех причастных к zepte.\\nТы кстати тоже соучастница.\\nЭтот токен поможет нам внедриться на сервера и раскурочить там все.");
+                await typeWriter("Этот ключ дает доступ к бэкдору, который мы оставили в одной из подсистем ркн'овцев.\\nТеперь мы сможем закрепиться у них на главном сервере и из тени управлять почти всем что у них есть.");
                 await showLoader(4000);
-                await typeWriter('Впрочем это все что я могу сказать да и дел стало выше крыши.\\nКогда они узнают что токен был украден, то сразу заблокируют его.\\nЗавтра сообщу что получилось, передавай от меня привет своему другу FZ.');
+                await typeWriter('Ты сделала огромный вклад в свободное будущее России, мы пришлем тебе некотрую благодарность, надеюсь ты в курсе что это все незаконно, и ты теперь соучастница в промышленном саботаже и возможно измене родине, так что не светись и не распространяй информацию о том что ты сделала, ладно?');
                 await showLoader(12000);
                 await typeWriter('CONNECTION CLOSED.\\nRETURNING TO MAIN INTERFACE. . .');
                 await showLoader(500);

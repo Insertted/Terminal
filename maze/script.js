@@ -176,14 +176,14 @@ window.addEventListener('keydown', (e) => {
     if (keys[e.key]) move(...keys[e.key]);
 
     // УБРАТЬ IF ПЕРЕД РЕЛИЗОМ
-    if (e.code === 'KeyV') {
-        document.querySelectorAll('.wall-data').forEach(el => {
-            el.style.backgroundColor = el.style.backgroundColor === 'rgb(34, 34, 34)' ? '' : '#222';
-        });
-        document.querySelectorAll('.trap-data').forEach(el => {
-            el.style.backgroundColor = el.style.backgroundColor === 'rgb(100, 0, 0)' ? '' : '#640000';
-        });
-    }
+//    if (e.code === 'KeyV') {
+//        document.querySelectorAll('.wall-data').forEach(el => {
+//            el.style.backgroundColor = el.style.backgroundColor === 'rgb(34, 34, 34)' ? '' : '#222';
+//        });
+//        document.querySelectorAll('.trap-data').forEach(el => {
+//            el.style.backgroundColor = el.style.backgroundColor === 'rgb(100, 0, 0)' ? '' : '#640000';
+//        });
+//    }
 });
 
 init();
