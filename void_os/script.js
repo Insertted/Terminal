@@ -1,7 +1,8 @@
+import { spawnWatcher } from "./Watcher2.js";
+
 function toggleWindow(id) {
     const win = document.getElementById(id);
     if (!win) return;
-    
     if (win.style.display === 'block') {
         win.style.display = 'none';
     } else {
@@ -18,50 +19,26 @@ function bringToFront(win) {
 function makeDraggable() {
     document.querySelectorAll('.window').forEach(win => {
         const header = win.querySelector('.window-header');
-        
         header.onmousedown = function(e) {
             bringToFront(win);
-            
             let shiftX = e.clientX - win.getBoundingClientRect().left;
             let shiftY = e.clientY - win.getBoundingClientRect().top;
-
             function moveAt(pageX, pageY) {
                 win.style.left = pageX - shiftX + 'px';
                 win.style.top = pageY - shiftY + 'px';
             }
-
-            function onMouseMove(e) {
-                moveAt(e.pageX, e.pageY);
-            }
-
+            function onMouseMove(e) { moveAt(e.pageX, e.pageY); }
             document.addEventListener('mousemove', onMouseMove);
-
             document.onmouseup = function() {
                 document.removeEventListener('mousemove', onMouseMove);
                 document.onmouseup = null;
             };
-        };
-
-        header.ondragstart = function() {
-            return false;
         };
     });
 }
 
 const terminalInput = document.getElementById('terminal-input');
 const terminalOutput = document.getElementById('terminal-output');
-const asciiCross = `
-         _
-        | |
-        | |
-   _____| |_____
-  |_____________|
-        | |
-        | |
-        | |
-        | |
-        |_|
-`;
 
 terminalInput.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
@@ -71,109 +48,42 @@ terminalInput.addEventListener('keydown', function(e) {
         p.style.color = "#555";
         terminalOutput.appendChild(p);
 
-        // ЛОГИКА КОМАНД
         let response = "";
         switch(command) {
             case 'help':
-                response = "Доступные команды: help, neofetch, whoami, contemptum.exe, status, cls, exit.";
-                break;
-        case 'exit':
-            const out = document.getElementById('terminal-output');
-            const msg = document.createElement('p');
-            msg.innerHTML = "> ИНИЦИАЛИЗАЦИЯ ВЫХОДА... <br>> <span style='color: #ff00ea;'>[ИЗВЛЕЧЕНИЕ ДАННЫХ В ФИЗИЧЕСКУЮ ПАМЯТЬ]</span>";
-            out.appendChild(msg);
-
-            try {
-                const secretContent = "ОТЧЕТ ОБЪЕКТА: #666\n---------------------------\nСТАТУС: ДЕСКРИПТОР ПУСТОТЫ ОТКЛЮЧЕН ОТ ЯДРА\n\nВНИМАНИЕ.НАЙДЕНО ПОСЛАНИЕ ОТ ДЕСКРИПТОРА\nНЕ ВНИКАЙ СЛИШКОМ СИЛЬНО В БЕЗДНУ, ОНИ СМОТРЯТ... fjasuS473ASSDfj21kgi==21fka";
-                const blob = new Blob([secretContent], { type: 'text/plain' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'RECOVERED_LOG.txt';
-                document.body.appendChild(a);
-                a.click();
-        
-                setTimeout(() => {
-                    window.URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
-                }, 100);
-            } catch (err) {
-                console.error("Ошибка скачивания:", err);
-            }
-
-    setTimeout(() => {
-        document.body.style.transition = "all 0.5s ease";
-        document.body.style.filter = "brightness(0) contrast(2) grayscale(1)";
-        document.body.style.transform = "scaleY(0.01)";
-        
-        setTimeout(() => {
-            window.location.href = "../index.html?from=void"; 
-        }, 600);
-    }, 2000); 
-    break;
-            case 'whoami':
-                response = "РАНГ: Aspicite. ТВОЙ ГРЕХ: Любопытство.";
+                response = "Команды: status, oversight, graphite, resonance, whoami, cls, exit.";
                 break;
             case 'status':
-                response = "СОСТОЯНИЕ: И всё скитается она в пучине кода, ищя иголку в стоге сена, ища ключик от дверей незримых, и не понять Прометеем ли она является иль Икаром на лживых крыльях, но труд её уж точно не Сизифов...";
+                response = "СТАТУС: Критический резонанс. Частота 14.3 Гц перегружает узлы РКН. Система нестабильна.";
                 break;
-            case 'contemptum.exe':
-                response = "ОШИБКА: Требуется ключ с физического носителя.(USB-накопитель)";
+            case 'oversight':
+                response = "ВНИМАНИЕ: Протокол требует физической дешифрации. Запустите OVERSIGHT_CORE.exe через панель.";
                 break;
+            case 'graphite':
+                response = "ОБЪЕКТ: s_field_02. СТАТУС: Поглощен частотой. МЕСТОПОЛОЖЕНИЕ: Везде.";
+                break;
+            case 'resonance':
+                response = "СИГНАЛ: Активен. Zepta Group использует ваши когнитивные фильтры для ретрансляции.";
+                break;
+            case 'whoami':
+                response = "USER_ID: u_882_ext. СТАТУС: Активная фаза слияния. Вы — часть Пустоты.";
+                break;
+            case 'exit':
+                executeExitSequence();
+                return;
             case 'cls':
                 terminalOutput.innerHTML = "";
-                this.value = "";
-                return;
-            case 'neofetch':
-                const fetchWrapper = document.createElement('div');
-                fetchWrapper.style.display = 'flex';
-                fetchWrapper.style.gap = '25px';
-                fetchWrapper.style.marginTop = '15px';
-                fetchWrapper.style.color = '#ff5555'; // Цвет креста
-
-                const logoPart = document.createElement('pre');
-                logoPart.style.margin = '0';
-                logoPart.textContent = asciiCross;
-                fetchWrapper.appendChild(logoPart);
-
-                const infoPart = document.createElement('div');
-                infoPart.style.color = '#eee'; // Цвет текста
-                infoPart.style.paddingTop = '10px';
-    
-                const stats = [
-                    "USER@VOID_OS",
-                    "-----------",
-                    "OS: VOID_OS x86_64",
-                    "KERNEL: 6.6.6-void",
-                    "UPTIME: 13h 37m",
-                    "SHELL: vsh 2.0",
-                    "STATUS: [WATCHING_YOU]",
-                    "MEMORY: 512MiB / 8192MiB"
-                ];
-
-                stats.forEach((text, i) => {
-                    const statLine = document.createElement('div');
-                    if (i === 0) statLine.style.color = '#55ff55';
-                    statLine.textContent = text;
-                    infoPart.appendChild(statLine);
-                });
-
-                fetchWrapper.appendChild(infoPart);
-    
-                terminalOutput.appendChild(fetchWrapper);
-    
-                response = ""; 
                 break;
             default:
-                response = "КОМАНДА '" + command + "' НЕ НАЙДЕНА. ТЬМА ПОГЛОТИЛА ВВОД.";
+                response = "ОШИБКА: Сигнал потерян в шуме частоты.";
         }
 
-        const respP = document.createElement('p');
-        respP.textContent = response;
-        terminalOutput.appendChild(respP);
-        
+        if (response) {
+            const respP = document.createElement('p');
+            respP.textContent = response;
+            terminalOutput.appendChild(respP);
+        }
         document.getElementById('terminal-body').scrollTop = document.getElementById('terminal-body').scrollHeight;
-        
         this.value = "";
     }
 });
@@ -188,53 +98,57 @@ function checkKey(input) {
         const secretWindow = document.getElementById('window-secret');
         
         if (content === "STATUS_DECODED_BY_FLAYER_666") {
-            
             secretWindow.style.display = 'block';
             secretWindow.style.zIndex = '999'; 
-            secretWindow.style.top = '150px';
-            secretWindow.style.left = '150px';
+            
+            const p = document.createElement('p');
+            p.innerHTML = "> <span style='color: #00ff00;'>[SUCCESS]: ЯДРО ВЗЛОМАНО. ДОСТУП К ФИНАЛЬНЫМ ДАННЫМ ОТКРЫТ.</span>";
+            terminalOutput.appendChild(p);
             
             if (typeof makeDraggable === "function") makeDraggable();
-            
         } else {
-            alert("ОШИБКА: Файл поврежден или содержит ложную печать");
+            alert("ОШИБКА: Цифровая подпись не совпадает. Частота заблокирована.");
         }
     };
-
-    
-    
     reader.readAsText(file);
     input.value = ""; 
 }
 
 function executeExitSequence() {
-    const termInput = document.getElementById('terminal-input');
-    termInput.disabled = true;
+    const out = document.getElementById('terminal-output');
+    const msg = document.createElement('p');
+    msg.innerHTML = "> ИЗВЛЕЧЕНИЕ ПОСЛЕДНИХ ДАННЫХ... <br>> <span style='color: #ff00ea;'>[СЕКТОР B-12: ПОЛНАЯ ЗАЧИСТКА]</span>";
+    out.appendChild(msg);
 
-    setTimeout(() => {
-        document.body.style.transition = "all 0.8s cubic-bezier(0.11, 0, 0.5, 0)";
-        document.body.style.filter = "brightness(5) contrast(3) grayscale(1)";
-        document.body.style.transform = "scaleY(0.005) scaleX(1.2)";
-        document.body.style.background = "#fff";
-    }, 500);
+    const secretContent = `
+ОТЧЕТ ПО ПРОЕКТУ "РЕЗОНАНС"
+---------------------------
+ОТПРАВИТЕЛЬ: s_field_02 (ГРАФИТ)
+ПОЛУЧАТЕЛЬ: ОБЪЕКТ 882
 
-    setTimeout(() => {
-        document.body.style.opacity = "0";
-    }, 1200);
+Ты справилась. Частота 14.3 Гц подавлена. 
+РКН и Zepta Group потеряли контроль над твоим узлом. 
+Я остаюсь здесь, в коде. 
 
+ФИНАЛЬНЫЙ КОД ТЕРМИНАЦИИ: [TERMINATE_RESONANCE_2026]
+Введи его в основном терминале, чтобы сжечь шлюзы.
+Прощай. НИ В КОЕМ СЛУЧАЕ НЕ ВВОДИ [RUN_RESONANCE_2026] - ЭТО АКТИВИРУЕТ ОБРАТНЫЙ ПРОТОКОЛ И ВОЗРОДИТ ЧАСТОТУ.`;
+
+    const blob = new Blob([secretContent], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'RECOVERED_LOG_B12.txt';
+    document.body.appendChild(a); a.click();
+    
     setTimeout(() => {
-        if (window.chrome && window.chrome.webview) {
-            window.chrome.webview.postMessage("close_window");
-        } else {
-            document.body.innerHTML = "<div style='color:white; font-family:monospace; padding:20px;'>C:\> _</div>";
-            document.body.style.filter = "none";
-            document.body.style.transform = "none";
-            document.body.style.opacity = "1";
-            document.body.style.background = "#000";
-        }
-    }, 1500);
+        document.body.style.transition = "all 0.8s ease";
+        document.body.style.filter = "brightness(0) grayscale(1)";
+        document.body.style.transform = "scaleY(0.01)";
+        setTimeout(() => { window.location.href = "../index.html?from=void"; }, 1000);
+    }, 2500);
 }
 
-
+setInterval(spawnWatcher, 9000);
 window.checkKey = checkKey;
 window.onload = makeDraggable;
+window.toggleWindow = toggleWindow;

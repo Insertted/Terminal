@@ -1,0 +1,18 @@
+{
+  "session_id": "EEG-2026-02-17-143",
+  "subject_id": "SUBJ-07",
+  "condition": "CW ??.# GHz exposure, 5 min, eyes closed",
+  "timestamp": "2025-04-17T02:15:00Z",
+  "channels": {
+    "Fp1": { "alpha_power": 18.2, "theta_power": 25.1, "gamma_power": 42.3 },
+    "Fp2": { "alpha_power": 17.8, "theta_power": 24.9, "gamma_power": 41.7 },
+    "O1": { "alpha_power": 9.4, "theta_power": 12.3, "gamma_power": 15.1 },
+    "O2": { "alpha_power": 8.9, "theta_power": 11.8, "gamma_power": 14.9 }
+  },
+  "events": [
+    { "time_sec": 18.3, "type": "gamma_spike", "amplitude": 58.2 },
+    { "time_sec": 52.7, "type": "theta_burst", "amplitude": 49.5, "duration_sec": 4.2 },
+    { "time_sec": 270.1, "type": "alpha_suppression", "duration_sec": 35.0 }
+  ],
+  "interpretation": "Аномальное поведение ретрансляторов с 7 по 32, неразборчивые шумы с частоты близкой к 14.3 ГГЦ. Опознать частоту невозможно."
+}

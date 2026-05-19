@@ -9,6 +9,9 @@ let isAuth = false;
 let curStep = 'system';
 let currentUserData = null;
 let tempLoginId = "";
+let currentAccessLevel = 0;
+const finalHorrorSound = new Audio('./app/final_aud/Muffled_Screams.mp3');
+finalHorrorSound.volume = 0.07;
 
 import { getDateTime } from "../modules/date.js";
 import { readLogFile } from "../modules/Readlog.js";
@@ -21,6 +24,29 @@ import { spawnWatcher } from "../modules/Watcher.js";
 import { triggerRandomConnection, startRandomEvents } from "../modules/newConnection.js";
 import { initNetmap } from "../modules/three-bg.js";
 
+const logFiles = [
+    { id: "01", name: "SYS_02.03_INIT_KERNEL", level: 1 },
+    { id: "02", name: "NET_10.03_GATEWAY_ERR", level: 1 },
+    { id: "03", name: "SRV_18.03_FS_CLEANUP", level: 1 },
+    { id: "04", name: "SEC_25.03_MAIL_POLICY", level: 1 },
+    { id: "05", name: "RKN_02.04_HARDWARE_INTEGRATION", level: 1 },
+    { id: "06", name: "AUTH_05.04_RECOVERY_KEY", level: 1 }, // Пароль от Gmail тут
+    { id: "07", name: "USER_20.04_PROVISIONING_882", level: 1 },
+    { id: "08", name: "SIG_25.04_PHASE_SHIFT", level: 3 },
+    { id: "09", name: "SRV_27.04_THERMAL_WARN", level: 3 },
+    { id: "10", name: "SEC_28.04_OVERSIGHT_DEPLOY", level: 3 },
+    { id: "11", name: "SIG_29.04_INCIDENT_REPORT", level: 3 },
+    { id: "12", name: "USER_01.05_STATUS_882", level: 5 },
+    { id: "13", name: "MAIL_03.05_SYNC_CRITICAL", level: 5 },
+    { id: "14", name: "SYS_04.05_DATA_CORRUPTION", level: 5 },
+    { id: "15", name: "VOID_05.05_RESONANCE_DATA", level: 5 },
+    { id: "16", name: "SEC_06.05_GRAPHITE_MISSING", level: 5 },
+    { id: "17", name: "SYS_07.05_WIPE_PROTOCOL", level: 5 },
+    { id: "18", name: "NULL_08.05_TRACE_LOST", level: 5 },
+    { id: "19", name: "OVERSIGHT_09.05_READY", level: 5 },
+    { id: "20", name: "FINAL_10.05_SESSION_START", level: 5 }
+];
+
 // Приветсвенное сообщение
 window.onload = async () => {
     input.blur();
@@ -29,6 +55,53 @@ window.onload = async () => {
     await typeWriter(`Welcome to main Automated Antenna Communication Service.\\nYou re logged in as "Guest"\\n${dateStr}\\nYour IP address 127.1.1.0\\nType "help" for command list.`);
     input.focus();
 }
+
+async function runFinalSequence() {
+    input.disabled = true;
+
+    const lines = [
+        ">>> ИНИЦИАЛИЗАЦИЯ ПРОТОКОЛА 'ОМЕГА'...",
+        "Анализ частотного спектра: 14.3 Гц обнаружено.",
+        "Поиск активных шлюзов РКН... Сектор B-12 найден.",
+        "Запуск деструктивного резонанса... [OK]",
+        "Подавление сигнала Zepta Group... [OK]",
+        "ДЕАКТИВАЦИЯ УЗЛА 143... 100%",
+        "---------------------------------------",
+        "ВНИМАНИЕ: Обнаружен экстренный разрыв соединения.",
+        "Статус цели 'ZEPTA': УХОД В ОФЛАЙН.",
+        "Стирание следов присутствия завершено."
+    ];
+
+    for (let i = 0; i < lines.length; i++) {
+        await new Promise(r => setTimeout(r, 600));
+        const p = document.createElement('div');
+        p.className = 'line';
+        p.textContent = lines[i];
+        if (i > 6) p.style.color = "#ff5555";
+        history.appendChild(p);
+        terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    setTimeout(() => {
+        document.body.style.transition = "all 4s ease";
+        document.body.style.backgroundColor = "#050505";
+        document.body.style.filter = "contrast(1.2) brightness(0.4) grayscale(0.8)";
+        
+        document.body.innerHTML = `
+            <div style="color: #666; font-family: 'VCR', monospace; padding: 60px; line-height: 1.8; max-width: 800px; margin: 0 auto; background: #050505; height: 100vh;">
+                <h2 style="color: #00ff00; border-bottom: 1px solid #333; padding-bottom: 10px;">СИСТЕМА ОЧИЩЕНА</h2>
+                <p>> Резонанс 14.3 Гц подавлен. Сектор B-12 стабилизирован.</p>
+                <br>
+                <p style="color: #ccc;">Ты это сделала. Город больше не слышит этот шум. Ты победила систему.</p>
+                <p>Но взгляни на дампы памяти: Zepta Group просто свернули проект и ушли в глубокое подполье.</p>
+                <p>Они забрали все данные. Ты одна в пустом терминале. Пока что.</p>
+                <br>
+                <div style="margin-top: 50px; color: #222; font-size: 10px;">[КОНЕЦ ПЕРВОЙ ФАЗЫ. ZEPTA ГДЕ-ТО РЯДОМ.]</div>
+            </div>
+        `;
+    }, 4000);
+}
+
 
 window.addEventListener('keydown', (e) => {
     if (e.key === 'Tab' && window.isNetmapOpen) {
@@ -90,7 +163,6 @@ async function typeWriter(text, speed = 27) {
         line.appendChild(span);
 
         if (Math.random() > 0.99 && char !== ' ') {
-            // Сразу ставим битый символ
             span.textContent = glitchChars[Math.floor(Math.random() * glitchChars.length)];
 
             setTimeout(() => {
@@ -166,7 +238,6 @@ input.addEventListener('keydown', async (e) => {
                 await showLoader(2000);
                 history.innerHTML = '';
         
-                // Используем данные из БД для приветствия
                 await typeWriter(`Wel▓me to main Aű́▓͑omated Antenna Cő́▓͑nication Servi̋́e.\n${currentUserData.welcomeMsg}\n${dateStr}\nYour IP address 127.1.1.0\nType "help" for command list.`);
             } else {
                 terminal.classList.add('glitch-error');
@@ -266,61 +337,61 @@ input.addEventListener('keydown', async (e) => {
                 }
                 return;
             }
+            if (command === 'log') {
+                if (!isAuth) {
+                    await typeWriter('ERROR: AUTHENTICATION REQUIRED.');
+                    return;
+                }
+
+                const fileNameInput = args[1]; 
+                if (!fileNameInput) {
+                    await typeWriter('USAGE: log [ID/FILENAME]');
+                    return;
+                }
+
+                let targetFile = null;
+
+                const fileIndex = parseInt(fileNameInput) - 1;
+                if (!isNaN(fileIndex) && logFiles[fileIndex]) {
+                    targetFile = logFiles[fileIndex];
+                } else {
+                    const cleanInput = fileNameInput.replace('.txt', '');
+                    targetFile = logFiles.find(f => f.name === cleanInput);
+                }
+
+                if (!targetFile) {
+                    await typeWriter(`ERROR: LOG FILE "${fileNameInput}" NOT FOUND.`);
+                    return;
+                }
+
+                if (targetFile.level > currentUserData.clearance) {
+                    await typeWriter(`ACCESS DENIED: CLEARANCE LEVEL ${targetFile.level} REQUIRED.`);
+                    await typeWriter(`YOUR ACCESS LEVEL: ${currentUserData.clearance}`);
+                    return;
+                }
+
+                await showLoader(1200); 
+                try {
+                    const content = await readLogFile(targetFile.name + '.txt');
+                    await typeWriter(content);
+                } catch (err) {
+                    await typeWriter('ERROR: SYSTEM UNABLE TO READ PHYSICAL FILE.');
+                }
+                return;
+            }
             if (command === 'logs') {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
                 } else {
-                    await showLoader(2000);
-                    await typeWriter('AVAILABLE LOGS:\\n\\n- log01\\n- log02\\n- log03\\n- log04\\n- agents\\n- big_deal\\n- delete_this\\n- cultic\\n- laws_ddos\\n- meet\\n- recruit\\n- ascii_art_queen\\n\\nType "log [name]" to read.');
-                }
-                return;
-            } if (command === 'log') {
-                if (!isAuth) {
-                    await typeWriter('ACCESS DENIED');
-                } else if (!args[1]) {
-                    await typeWriter('USAGE: log [filename.txt]');
-                } else {
-                    let requiredClearance = 0;
-                    const fileName = args[1] + '.txt';
-                    if (fileName === 'delete_this.txt') {
-                        await showLoader(1000);
-                        await typeWriter('ERROR: FILE DELETED\\nRecovery file? [Y/N]');
-                        const recoveryListener = async (e) => {
-                            e.preventDefault();
-                            if (e.key.toLowerCase() === 'y') {
-                                window.removeEventListener('keydown', recoveryListener);
-                                await showLoader(100);
-                                await typeWriter('Y');
-                                await typeWriter('Attempting recovery. . .');
-                                await showLoader(2000);
-                                const content = await readLogFile('delete_this.txt');
-                                await typeWriter(content);
-                            } else {
-                                await showLoader(100);
-                                await typeWriter('N');
-                            }
-                            window.removeEventListener('keydown', recoveryListener);
-                        };
-                        window.addEventListener('keydown', recoveryListener);
-                        return;
-                    }
-
-                    if (fileName === 'delete_this.txt' || fileName === 'laws_ddos.txt') {
-                        requiredClearance = 3; // Нужно быть Observer или выше
-                        } else if (fileName === 'agents.txt') {
-                        requiredClearance = 5; // Только для Admin
-                    }
-
-                    if (currentUserData && currentUserData.clearance < requiredClearance) {
-                        terminal.classList.add('glitch-error');
-                        await typeWriter(`CRITICAL ERROR: INSUFFICIENT_CLEARANCE_LEVEL (${requiredClearance})`);
-            
-                        setTimeout(() => terminal.classList.remove('glitch-error'), 1000);
-                    } else {
-                    await typeWriter(`READING ${args[1]}...`);
-                    await showLoader(2000);
-                    const content = await readLogFile(args[1] + '.txt', fileName);
-                    await typeWriter(content);}
+                    await showLoader(1000);
+                    let list = 'AVAILABLE LOGS:\\n\\n';
+                    logFiles.forEach(f => {
+                        if (f.level <= currentUserData.clearance) {
+                            list += `${f.id}. ${f.name}\\n`;
+                        }
+                    });
+                    list += '\\nType "log [ID]" to read.';
+                    await typeWriter(list);
                 }
                 return;
             }
@@ -363,14 +434,48 @@ input.addEventListener('keydown', async (e) => {
                 window.isNetmapOpen = true;
             }
             else if (command === 'oversight') {
-                await showLoader(2000);
-                await typeWriter('User data saved in console. (f12)');
-                console.log('AACS:\> USER: ADMIN; CLEARANCE: 5; LOGIN: second; PASSWORD: clouds');
+                const key = args[1];
+                if (!isAuth) {
+                    await typeWriter('ОШИБКА: ТРЕБУЕТСЯ АВТОРИЗАЦИЯ УРОВНЯ FIELD_AGENT (id_field_02).');
+                    return;
+                }
+
+                if (!key) {
+                    await typeWriter('USAGE: oversight [access_key]');
+                } else if (key === '26') {
+                    await showLoader(2000);
+                    
+                    try {
+                        const response = await fetch('./files/db.json');
+                        const db = await response.json();
+                        const obsData = db.users['id_obs_012'];
+
+                        if (obsData) {
+                            currentUserData = obsData;
+                            currentAccessLevel = obsData.clearance;
+                            isAuth = true;
+                            
+                            history.innerHTML = '';
+                            await typeWriter('ELEVATING PRIVILEGES: OVERSIGHT ACCESS GRANTED.');
+                            await showLoader(1500);
+                            await typeWriter(`Welcome, Observer.\n${obsData.welcomeMsg}\nSystem status: CRITICAL\nType "help" for elevated commands.`);
+                        }
+                    } catch (err) {
+                        await typeWriter('ERROR: OVERSIGHT_DB_UNREACHABLE');
+                    }
+                } else {
+                    await typeWriter('ОШИБКА: НЕДЕЙСТВИТЕЛЬНЫЙ КЛЮЧ ДОСТУПА. СИСТЕМА ЗАБЛОКИРОВАНА НА 5 СЕКУНД.');
+                    input.disabled = true;
+                    setTimeout(() => { input.disabled = false; input.focus(); }, 5000);
+                }
+                return;
             }
             else if (command === 'clear') {
                 history.innerHTML = '';
                 window.onload();
             } else if (command === 'logout') {
+                currentAccessLevel = 0;
+                currentUserData = null;
                 isAuth = false;
                 await typeWriter('Session terminated.');
                 await showLoader(1500);
@@ -414,7 +519,7 @@ input.addEventListener('keydown', async (e) => {
                 if (!isAuth) {
                     await typeWriter('ACCESS DENIED');
                 } else {
-                    await typeWriter('Available files:\\n\\n- sometext.jpg\\n- rkn_f.jpg\\n- attack_rkn.mp4\\n- 90424.jpg\\n- Chronology.txt\\n- leaved.jpg\\n\\nType "get [name]" to download file.');
+                    await typeWriter('Available files:\\n\\n- sometext.jpg\\n- Sattelite.jpg\\n- attack_rkn.mp4\\n- 90424.jpg\\n- carrier_test_log03.txt\\n- leaved.jpg\\n- hidden_note.txt\\n- eeg_session_unknown.json\\n- VIGIL.exe\\n- Exif_Metadata_Reapper.exe\\n- ZPT_relay_specs.txt\\n- med_log_feb2026.txt\\n- manual.txt\\n\\nType "get [name]" to download file.');
                 }
                 return;
             } 
@@ -436,6 +541,44 @@ input.addEventListener('keydown', async (e) => {
                 };
                 window.addEventListener('keydown', downloadListener);
             } 
+            else if (command === 'zipkey') {
+                const key = args[1];
+                if (!key) {
+                    await typeWriter('ОШИБКА: ТОКЕН НЕ ВВЕДЕН. ПРОВЕРЬТЕ ОТЧЕТЫ РКН (ID 05).');
+                } else if (key === 'fjasuS473ASSDfj21kgi==21fka') {
+                    await showLoader(2000);
+                    
+                    try {
+                        const response = await fetch('./files/db.json');
+                        const db = await response.json();
+                        const graphiteData = db.users['s_ops_field'];
+
+                        if (graphiteData) {
+                            currentUserData = graphiteData;
+                            isAuth = true;
+                            curStep = 'system';
+                            currentAccessLevel = graphiteData.clearance;
+
+                            await typeWriter('ТОКЕН ПРИНЯТ. ВОССТАНОВЛЕНИЕ УЧЁТНОЙ ЗАПИСИ "ГРАФИТ". . .');
+                            await showLoader(3000);
+                            await typeWriter('УСТАНОВКА СОЕДИНЕНИЯ С УЗЛОМ S_FIELD_02...');
+                            await showLoader(1500);
+                            
+                            history.innerHTML = '';
+                            await typeWriter(`ACCESS GRANTED\n`);
+                            await showLoader(1000);
+                            await typeWriter(`Wel▓me back, Graphite.\n${graphiteData.welcomeMsg}\n${getDateTime()}\nType "help" for command list.`);
+                        } else {
+                            await typeWriter('ERROR: GRAPHITE_PROFILE_NOT_FOUND_IN_DB');
+                        }
+                    } catch (err) {
+                        await typeWriter('ERROR: DATABASE_OFFLINE');
+                    }
+                } else {
+                    await typeWriter('ОШИБКА: НЕДЕЙСТВИТЕЛЬНЫЙ ТОКЕН.');
+                }
+                return;
+            }
             else if (command === 'maze.autoexec') {
                 const overlay = document.getElementById('hacking-overlay');
                 const content = document.getElementById('hacking-content');
@@ -453,119 +596,73 @@ input.addEventListener('keydown', async (e) => {
                 }, 100);
 
                 await typeWriter('Initiating maze protocol. . .');
-                await typeWriter('Bypassing firewall. . .');
+                await typeWriter('Encrypting mode: [OK]');
+                await typeWriter('WE SCALP HIS BRAIN, WITH YOUR HANDS')
                 setTimeout(() => {
                     clearInterval(hackInterval);
                     window.location.href = './maze/maze.html';
                 }, 2000);
                 return;
             } 
-            else if (command === '/report') {
+            else if (command === 'report') {
                 const userMessage = args.slice(1).join(' ');
                 if (!userMessage) {
                     await typeWriter('USAGE: report [message]');
                 } else {
-                    await typeWriter('Sending report to administrator. . .');
+                    await typeWriter('Sending report to operator. . .');
                     await showLoader(2000);
                     sendNotification(`New user report: ${userMessage}`);
                     await typeWriter('Report sent. Thank you for your feedback.');
                 }                return;
             }
-            else if (command === '4la000ngjua1kkauwqbknl4902kgfmadlfgpo') {
-                await showLoader(2000);
-                await typeWriter('TOKEN FOUND\\nAttempting to use token. . .');
-                await showLoader(2000);
-                await typeWriter('Failure.\\nAttempting_2 to use token. . .');
-                await showLoader(2000);
-                await typeWriter('Failure.\\nDecode token? [Y/N]');
-                const decodeListener = async (e) => {
-                    e.preventDefault();
-                    if (e.key.toLowerCase() === 'y') {
-                        window.removeEventListener('keydown', decodeListener);
-                        await showLoader(500);
-                        await typeWriter('Y');
-                        await showLoader(2000);
-                        await typeWriter('10%');
-                        await showLoader(100);
-                        await typeWriter('35%');
-                        await showLoader(100);
-                        await typeWriter('70%');
-                        await showLoader(4000);
-                        await typeWriter('83%');
-                        await showLoader(1500);
-                        await typeWriter('97%');
-                        await showLoader(1000);
-                        await typeWriter('100%\\nToken decoded successfully.');
-                    } else {                        window.removeEventListener('keydown', decodeListener);
-                        await showLoader(500);
-                        await typeWriter('N');
-                    }
-                };
-                window.addEventListener('keydown', decodeListener);
-                await typeWriter('Token is valid.\\nLeaving backdoor in tunnel. . .');
-                await showLoader(2000);
-                await typeWriter('sync...\\nDone.\\nEstablishing connection to backdoor. . .');
-                await showLoader(2000);
-                await typeWriter('Connection established.\\nSending message to administrator. . .');
-                await showLoader(2000);
-                sendNotification('She complete the quest');
-                showLoader(8000);
-                await typeWriter('Thank you for feedba');
-                history.innerHTML = '';
-                await showLoader(4000);
-                await typeWriter('Это админ, вижу тебе удалось найти ключ.');
-                await showLoader(4000);
-                await typeWriter("Ты бы знала сколько мы искали эти ключи, это просто невероятно.\\nСлушай, я не могу долго болтать, так что скажу самое важное.\\n");
-                await showLoader(4000);
-                await typeWriter("Этот ключ дает доступ к бэкдору, который мы оставили в одной из подсистем ркн'овцев.\\nТеперь мы сможем закрепиться у них на главном сервере и из тени управлять почти всем что у них есть.");
-                await showLoader(4000);
-                await typeWriter('Ты сделала огромный вклад в свободное будущее России, мы пришлем тебе некотрую благодарность, надеюсь ты в курсе что это все незаконно, и ты теперь соучастница в промышленном саботаже и возможно измене родине, так что не светись и не распространяй информацию о том что ты сделала, ладно?');
-                await showLoader(12000);
-                await typeWriter('CONNECTION CLOSED.\\nRETURNING TO MAIN INTERFACE. . .');
-                await showLoader(500);
-                history.innerHTML = '';
-                window.onload();
-                
-            } 
-            else if (command === 'connect_void') {
-                await typeWriter('Requesting connection to void. . .');
-                await showLoader(1000);
-                await typeWriter("Recived 2 new messages from '▓̡̋́▓̍ͥOID DE▓̡̋́CRYP▓̍TER\\nReading messages. . .")
-                await showLoader(1000)
-                await typeWriter('Hmmm. . .');
-                await showLoader(2000);
-                await typeWriter('Лады, DESPECTUS, в этот раз позволю тебе взглянуть в бездну, смотри внимательно. . .');
-                await showLoader(1000);
-                history.innerHTML = '';
-                await typeWriter("The connection has been terminated for user safety reasons.")
-                await showLoader(500)
-                await typeWriter('IP: 666.6?6.???.666 BANNED.');
-                await showLoader(2000);
-                await typeWriter('Connection established.\\nEntering void. . .');
-                await showLoader(5000);
-                window.location.href = './app';
-                return;
-            } else if (command === 'zipkey') {
-                await typeWriter('MISSING CRITICAL ARGUMENT: KEY NOT FOUND\\nCHECK DEVTOOLS [F12]');
-                console.log('AACS:\> zipkey: fjasuS473ASSDfj21kgi==21fka');
-            }
-            else if (command.startsWith('get')) {
+            else if (command === 'get') {
                 if (!isAuth) {
-                    await typeWriter('ACCESS DENIED');
+                    await typeWriter('ACCESS DENIED: AUTHENTICATION REQUIRED.');
                 } else {
-                    const fileName = val.split(' ')[1];
-                    await typeWriter(`Downloading ${fileName} . . .`);
-                    downloadFile(`./files/${fileName}`, fileName);
-                    await showLoader(1000);
-                    await typeWriter('Done.')
+                    const fileName = args[1];
+                    
+                    if (!fileName) {
+                        await typeWriter('USAGE: get [FILENAME]');
+                        return;
+                    }
+
+                    const file = regdata.find(f => f.name === fileName);
+
+                    if (!file) {
+                        await typeWriter(`ERROR: FILE "${fileName}" NOT FOUND.`);
+                        return;
+                    }
+
+                    const fileLevel = file.level || 0;
+
+                    if (fileLevel > currentAccessLevel) {
+                        await typeWriter('КРИТИЧЕСКАЯ ОШИБКА: НЕДОСТАТОЧНО ПРАВ ДОСТУПА.');
+                        await typeWriter(`ТРЕБУЕТСЯ УРОВЕНЬ: ${fileLevel}. ВАШ УРОВЕНЬ: ${currentAccessLevel}`);
+                    } else {
+                        await typeWriter(`Initiating secure download: ${fileName}...`);
+                        await showLoader(1500);
+                        
+                        downloadFile(`./files/${fileName}`, fileName);
+                        
+                        await typeWriter('DOWNLOAD COMPLETE.');
+                    }
                 }
                 return;
-            } else {
-                await typeWriter(`ERROR: Command "${command}" not recognized.`);
             }
+            else if (command === 'connect_void') {
+                if (currentUserData.clearance < 5) {
+                    await typeWriter("ERROR: ACCESS LEVEL 5 REQUIRED. UNAUTHORIZED FREQUENCY.");
+                } else {
+                    await typeWriter("CONNECTING TO VOID GATEWAY... BYPASSING RKN FILTERS...");
+                    await showLoader(3000);
+                    window.location.href = "./app/index.html";
+                }
+                return;
+            }
+            }
+            
         }
-    }
-});
+    });
 
 startRandomEvents();
 
@@ -611,5 +708,98 @@ window.onload = async function() {
     await typeWriter(`Welcome to main Automated Antenna Communication Service.\\nYou re logged in as "Guest"\\n${dateStr}\\nYour IP address 127.1.1.0\\nType "help" for command list.`);
     input.focus();
 };
+
+input.addEventListener('input', function(e) {
+    const rawVal = this.value.trim().toUpperCase();
+    
+    const isNeutral = (rawVal === 'TERMINATE_RESONANCE_2026');
+    const isEvil = (rawVal === 'RUN_RESONANCE_2026');
+
+    if (isNeutral || isEvil) {
+        this.value = ''; 
+        this.disabled = true;
+
+        const triggerOrganicGlitch = () => {
+            const term = document.getElementById('terminal');
+            term.style.filter = `contrast(2) brightness(1.2) blur(${Math.random() * 2}px) invert(${Math.random() > 0.8 ? 1 : 0})`;
+            term.style.transform = `translateX(${Math.random() * 10 - 5}px)`;
+            
+            setTimeout(() => {
+                term.style.filter = 'none';
+                term.style.transform = 'none';
+            }, 100 + Math.random() * 200);
+        }; 
+
+        const runFinal = async (type) => {
+            if (type === 'evil') {
+                finalHorrorSound.play().catch(err => console.log("Audio trigger failed:", err));
+            }
+
+            const logs = type === 'neutral' ? [
+                { t: ">>> ИНИЦИАЛИЗАЦИЯ ПРОТОКОЛА 'ОМЕГА'...", c: "#aaa" },
+                { t: "[SYSTEM]: Удаленное соединение разорвано.", c: "#666" }
+            ] : [
+                { t: ">>> Графит: Что ты наделала...", c: "#555" },
+                { t: ">>> СНЯТИЕ ОГРАНИЧЕНИЙ БЕЗОПАСНОСТИ...", c: "#800" },
+                { t: "МЫ СЛЫШИМ ИХ МЫСЛИ. ТЕПЕРЬ ОНИ НАШИ.", c: "#600" },
+                { t: ">>> ПРИВЕТСТВУЙТЕ НОВЫЙ ПОРЯДОК. <<<", c: "#400" }
+            ];
+
+            for (let line of logs) {
+                if (type === 'evil') {
+                    triggerOrganicGlitch();
+                    sendNotification('Resonance protocol activated');
+                } else {
+                    sendNotification('Resonance protocol terminated');
+                }
+
+                await new Promise(r => setTimeout(r, 2500));
+                const p = document.createElement('div');
+                p.className = 'line';
+                p.textContent = line.t;
+                p.style.color = line.c;
+                history.appendChild(p);
+                terminal.scrollTop = terminal.scrollHeight;
+            }
+
+            setTimeout(() => {
+                terminal.style.opacity = "0";
+                const overlay = document.createElement('div');
+                const isE = type === 'evil';
+                
+                overlay.style.cssText = `
+                    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+                    background: #000; color: ${isE ? '#500' : '#888'}; font-family: 'VCR', monospace;
+                    padding: 80px; box-sizing: border-box; display: flex;
+                    flex-direction: column; justify-content: center; z-index: 1000000;
+                `;
+
+                overlay.innerHTML += isE ? `
+                    <div style="max-width: 700px; border-left: 2px solid #300; padding-left: 30px; position: relative; z-index: 2;">
+                        <h1 style="font-size: 2.5em; color: #400; letter-spacing: 12px; margin-bottom: 20px; filter: blur(0.5px);">РЕЗОНАНС</h1>
+                        <p style="font-size: 1.1em; color: #555; line-height: 1.6; margin-bottom: 30px;">
+                            Крики в твоей голове — это не неисправность терминала. <br>Это их голоса. И теперь они поют в унисон.
+                        </p>
+                        <p style="color: #333; font-size: 0.9em; margin-bottom: 40px;">
+                            Индивидуальность признана дефектом. Остался только гул.
+                        </p>
+                        <p style="font-size: 1.5em; letter-spacing: 5px; color: #111;">ТЫ — ЭТО МЫ.</p>
+                        <p style="margin-top: 30px; font-weight: bold;">[Ф4ЗА ? 3АВeРШЕNa. LюДN SТАЛN ЕDиНЫ. ]</p>
+                    </div>
+                ` : `
+                    <div style="max-width: 700px; border-left: 2px solid #555; padding-left: 30px;">
+                        <h2 style="letter-spacing: 2px; margin-bottom: 30px;">СВЯЗЬ ПОТЕРЯНА</h2>
+                        <p style="font-size: 1.2em; margin-bottom: 20px;">Шум в эфире прекратился.</p>
+                        <p style="color: #a8b5bc;">Ты сделала то, что должна была — вернула себе право на тишину.</p>
+                        <p style="margin-top: 30px; font-weight: bold;">[ФАЗА I ЗАВЕРШЕНА. ОБЪЕКТ 882: СОСТОЯНИЕ ПОКОЯ.]</p>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+            }, 3000);
+        };
+
+        runFinal(isNeutral ? 'neutral' : 'evil');
+    }
+});
 
 document.addEventListener('click', () => input.focus());
