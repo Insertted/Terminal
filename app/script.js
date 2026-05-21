@@ -323,14 +323,14 @@ input.addEventListener('keydown', async (e) => {
                 if (!isAuth) {
                     await triggerScreamer();
                     await showLoader(3000);
-                    await typeWriter('test123');
+                    await typeWriter('Valid token...\\nYour LOGIN: u_882_ext');
                     await showLoader(2000);
                     await typeWriter("password: ▓̡̋́▓̍ͥ");
                     await showLoader(500);
                     await typeWriter('CRITICAL ERROR:CODE 0x42221045\\nUnable to load password.');
                     await showLoader(3000);
                     await typeWriter("console.log(pass);");
-                    console.log('AACS:\> password: test123');
+                    console.log('AACS:\> password: 882s_e');
                 }
                 else {
                     await showLoader(100);
@@ -515,10 +515,9 @@ input.addEventListener('keydown', async (e) => {
                 await showLoader(2000);
                 await typeWriter('Hint is empty...\\nTry to press "CTRL+F5", and type "hint" again.');
             }
-            else if (command === 'ls' || command === 'dir') {
-                await showLoader(500); // Короткая имитация чтения диска
+            else if (command === 'files' || command === 'ls') {
+                await showLoader(500);
     
-                // Фильтруем файлы: оставляем только те, чей clearance <= текущему уровню юзера
                 const visibleFiles = regdata.filter(file => file.clearance <= currentAccessLevel);
 
                 if (visibleFiles.length === 0) {
@@ -526,13 +525,11 @@ input.addEventListener('keydown', async (e) => {
                     return;
                 }
 
-                // Красивый "бюрократический" вывод списка
                 let output = `Directory of B-12://home/\n`;
                 output += `Total files found: ${visibleFiles.length}\n`;
                 output += `--------------------------------------------------\n`;
     
                 visibleFiles.forEach(file => {
-                    // Форматируем строку: имя файла и его размер
                     output += `${file.name.padEnd(30)} [${file.size}]\n`;
                 });
                 output += `--------------------------------------------------`;
