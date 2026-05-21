@@ -515,12 +515,29 @@ input.addEventListener('keydown', async (e) => {
                 await showLoader(2000);
                 await typeWriter('Hint is empty...\\nTry to press "CTRL+F5", and type "hint" again.');
             }
-            else if (command === 'ls' || command === 'files') {
-                if (!isAuth) {
-                    await typeWriter('ACCESS DENIED');
-                } else {
-                    await typeWriter('Available files:\\n\\n- sometext.jpg\\n- Sattelite.jpg\\n- attack_rkn.mp4\\n- 90424.jpg\\n- carrier_test_log03.txt\\n- leaved.jpg\\n- hidden_note.txt\\n- eeg_session_unknown.json\\n- VIGIL.exe\\n- Exif_Metadata_Reapper.exe\\n- ZPT_relay_specs.txt\\n- med_log_feb2026.txt\\n- manual.txt\\n\\nType "get [name]" to download file.');
+            else if (command === 'ls' || command === 'dir') {
+                await showLoader(500); // Короткая имитация чтения диска
+    
+                // Фильтруем файлы: оставляем только те, чей clearance <= текущему уровню юзера
+                const visibleFiles = regdata.filter(file => file.clearance <= currentAccessLevel);
+
+                if (visibleFiles.length === 0) {
+                    await typeWriter('DIRECTORY IS EMPTY OR CORRUPTED.');
+                    return;
                 }
+
+                // Красивый "бюрократический" вывод списка
+                let output = `Directory of B-12://home/\n`;
+                output += `Total files found: ${visibleFiles.length}\n`;
+                output += `--------------------------------------------------\n`;
+    
+                visibleFiles.forEach(file => {
+                    // Форматируем строку: имя файла и его размер
+                    output += `${file.name.padEnd(30)} [${file.size}]\n`;
+                });
+                output += `--------------------------------------------------`;
+
+                await typeWriter(output);
                 return;
             } 
             else if (command === 'maze.oetfkanvz0') {
