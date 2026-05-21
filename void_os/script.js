@@ -1,4 +1,5 @@
 import { spawnWatcher } from "./Watcher2.js";
+let decoded = "not_decoded";
 
 function toggleWindow(id) {
     const win = document.getElementById(id);
@@ -51,7 +52,7 @@ terminalInput.addEventListener('keydown', function(e) {
         let response = "";
         switch(command) {
             case 'help':
-                response = "Команды: status, oversight, graphite, resonance, whoami, cls, exit.";
+                response = "Команды: status, oversight, graphite, resonance,disconnect_resonance, whoami, cls, exit.";
                 break;
             case 'status':
                 response = "СТАТУС: Критический резонанс. Частота 14.3 Гц перегружает узлы РКН. Система нестабильна.";
@@ -67,6 +68,9 @@ terminalInput.addEventListener('keydown', function(e) {
                 break;
             case 'whoami':
                 response = "USER_ID: u_882_ext. СТАТУС: Активная фаза слияния. Вы — часть Пустоты.";
+                break;
+            case 'disconnect_resonance':
+                response = "Пользователь ID:882 отключен от частоты. Сигнал подавлен.";
                 break;
             case 'exit':
                 executeExitSequence();
@@ -99,7 +103,8 @@ function checkKey(input) {
         
         if (content === "STATUS_DECODED_BY_FLAYER_666") {
             secretWindow.style.display = 'block';
-            secretWindow.style.zIndex = '999'; 
+            secretWindow.style.zIndex = '999';
+            decoded = "decoded";
             
             const p = document.createElement('p');
             p.innerHTML = "> <span style='color: #00ff00;'>[SUCCESS]: ЯДРО ВЗЛОМАНО. ДОСТУП К ФИНАЛЬНЫМ ДАННЫМ ОТКРЫТ.</span>";
@@ -117,37 +122,47 @@ function checkKey(input) {
 function executeExitSequence() {
     const out = document.getElementById('terminal-output');
     const msg = document.createElement('p');
-    msg.innerHTML = "> ИЗВЛЕЧЕНИЕ ПОСЛЕДНИХ ДАННЫХ... <br>> <span style='color: #ff00ea;'>[СЕКТОР B-12: ПОЛНАЯ ЗАЧИСТКА]</span>";
-    out.appendChild(msg);
+    if (decoded === "decoded") {
+        msg.innerHTML = "> ИЗВЛЕЧЕНИЕ ПОСЛЕДНИХ ДАННЫХ... <br>> <span style='color: #ff00ea;'>[СЕКТОР B-12: ПОЛНАЯ ЗАЧИСТКА]</span>";
+        out.appendChild(msg);
 
-    const secretContent = `
-ОТЧЕТ ПО ПРОЕКТУ "РЕЗОНАНС"
----------------------------
-ОТПРАВИТЕЛЬ: s_field_02 (ГРАФИТ)
-ПОЛУЧАТЕЛЬ: ОБЪЕКТ 882
+        const secretContent = `
+    ОТЧЕТ ПО ПРОЕКТУ "РЕЗОНАНС"
+    ---------------------------
+    ОТПРАВИТЕЛЬ: s_ops_field (ГРАФИТ)
+    ПОЛУЧАТЕЛЬ: ОБЪЕКТ 882
 
-Ты справилась. Частота 14.3 Гц подавлена. 
-РКН и Zepta Group потеряли контроль над твоим узлом. 
-Я остаюсь здесь, в коде. 
+    Ты справилась. Частота 14.3 Гц подавлена. 
+    РКН и Zepta Group потеряли контроль над твоим узлом. 
+    Я остаюсь здесь, в коде. 
 
-ФИНАЛЬНЫЙ КОД ТЕРМИНАЦИИ: [TERMINATE_RESONANCE_2026]
-Введи его в основном терминале, чтобы сжечь шлюзы.
-Прощай. НИ В КОЕМ СЛУЧАЕ НЕ ВВОДИ [RUN_RESONANCE_2026] - ЭТО АКТИВИРУЕТ ОБРАТНЫЙ ПРОТОКОЛ И ВОЗРОДИТ ЧАСТОТУ.`;
+    ФИНАЛЬНЫЙ КОД ТЕРМИНАЦИИ: [TERMINATE_RESONANCE_2026]
+    Введи его в основном терминале, чтобы сжечь шлюзы.
+    Прощай. НИ В КОЕМ СЛУЧАЕ НЕ ВВОДИ [RUN_RESONANCE_2026] - ЭТО АКТИВИРУЕТ ОБРАТНЫЙ ПРОТОКОЛ И ВОЗРОДИТ ЧАСТОТУ.`;
 
-    const blob = new Blob([secretContent], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = 'RECOVERED_LOG_B12.txt';
-    document.body.appendChild(a); a.click();
+        const blob = new Blob([secretContent], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'RECOVERED_LOG_B12.txt';
+        document.body.appendChild(a); a.click();
     
-    setTimeout(() => {
-        document.body.style.transition = "all 0.8s ease";
-        document.body.style.filter = "brightness(0) grayscale(1)";
-        document.body.style.transform = "scaleY(0.01)";
-        setTimeout(() => { window.location.href = "../index.html?from=void"; }, 1000);
-    }, 2500);
+        setTimeout(() => {
+            document.body.style.transition = "all 0.8s ease";
+            document.body.style.filter = "brightness(0) grayscale(1)";
+            document.body.style.transform = "scaleY(0.01)";
+            setTimeout(() => { window.location.href = "../index.html?from=void"; }, 1000);
+        }, 2500);
+    }
+    
+    else {
+        setTimeout(() => {
+            document.body.style.transition = "all 0.8s ease";
+            document.body.style.filter = "brightness(0) grayscale(1)";
+            document.body.style.transform = "scaleY(0.01)";
+            setTimeout(() => { window.location.href = "../index.html?from=void"; }, 1000);
+        }, 2500);
+    }
 }
-
 setInterval(spawnWatcher, 9000);
 window.checkKey = checkKey;
 window.onload = makeDraggable;

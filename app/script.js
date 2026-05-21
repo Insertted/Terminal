@@ -751,9 +751,12 @@ input.addEventListener('input', function(e) {
 
             const logs = type === 'neutral' ? [
                 { t: ">>> ИНИЦИАЛИЗАЦИЯ ПРОТОКОЛА 'ОМЕГА'...", c: "#aaa" },
-                { t: "[SYSTEM]: Удаленное соединение разорвано.", c: "#666" }
+                { t: "УДАЛЕНИЕ ФАЙЛОВ РЕЗОНАНСА...", c: "#aaa" },
+                { t: "ЗАКРЫТИЕ ПОРТОВ...", c: "#aaa" },
+                { t: "[SYSTEM]: Удаленное соединение разорвано...", c: "#666" },
+
             ] : [
-                { t: ">>> Графит: Что ты наделала...", c: "#555" },
+                { t: "Что же ты наделала. . .", c: "#555" },
                 { t: ">>> СНЯТИЕ ОГРАНИЧЕНИЙ БЕЗОПАСНОСТИ...", c: "#800" },
                 { t: "МЫ СЛЫШИМ ИХ МЫСЛИ. ТЕПЕРЬ ОНИ НАШИ.", c: "#600" },
                 { t: ">>> ПРИВЕТСТВУЙТЕ НОВЫЙ ПОРЯДОК. <<<", c: "#400" }
@@ -798,13 +801,16 @@ input.addEventListener('input', function(e) {
                             Индивидуальность признана дефектом. Остался только гул.
                         </p>
                         <p style="font-size: 1.5em; letter-spacing: 5px; color: #111;">ТЫ — ЭТО МЫ.</p>
-                        <p style="margin-top: 30px; font-weight: bold;">[Ф4ЗА ? 3АВeРШЕNa. LюДN SТАЛN ЕDиНЫ. ]</p>
+                        <p style="margin-top: 30px; font-weight: bold;">[Ф4ЗА ? 3АВeРШЕNa. LюДN SТАHYт ЕDиНЫ. ]</p>
                     </div>
                 ` : `
                     <div style="max-width: 700px; border-left: 2px solid #555; padding-left: 30px;">
                         <h2 style="letter-spacing: 2px; margin-bottom: 30px;">СВЯЗЬ ПОТЕРЯНА</h2>
                         <p style="font-size: 1.2em; margin-bottom: 20px;">Шум в эфире прекратился.</p>
+                        <p style="color: #a8b5bc;">Zepta Group отключила тебя прежде чем ты смогла сжечь всю систему.</p>
+                        <p style="color: #a8b5bc;">Потрёпанные, но живые Zepta Group уходят в тень.</p>
                         <p style="color: #a8b5bc;">Ты сделала то, что должна была — вернула себе право на тишину.</p>
+                        <p style="color: #a8b5bc;">Но надолго ли..?</p>
                         <p style="margin-top: 30px; font-weight: bold;">[ФАЗА I ЗАВЕРШЕНА. ОБЪЕКТ 882: СОСТОЯНИЕ ПОКОЯ.]</p>
                     </div>
                 `;
